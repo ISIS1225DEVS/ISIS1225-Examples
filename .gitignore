@@ -109,10 +109,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-<<<<<<< HEAD
-=======
 .vscode/
->>>>>>> 396bfd5baa11de2863c3479edf70cfc9fb46492d
 
 # Spyder project settings
 .spyderproject
@@ -131,8 +128,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
-=======
 
 
 #Mac file system
@@ -146,4 +141,3 @@ dmypy.json
 !Data/GoodReads/book_reviews.csv
 
 .vim
->>>>>>> 396bfd5baa11de2863c3479edf70cfc9fb46492d
