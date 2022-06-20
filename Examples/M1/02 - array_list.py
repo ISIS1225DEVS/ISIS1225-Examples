@@ -1,5 +1,7 @@
 import config as cf
 from DISClib.ADT import list as lt
+from Utils.measurements import *
+assert cf
 
 
 a = lt.newList('SINGLE_LINKED')   #Creacion de una lista vacia con listas sencillamente anlazadas
