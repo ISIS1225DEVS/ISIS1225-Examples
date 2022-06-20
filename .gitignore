@@ -138,7 +138,5 @@ dmypy.json
 #Data
 *.csv
 *.zip
-!Data/Samples/Artworks-utf8-MoMA-Sample.csv
-!Data/Samples/Artists-utf8-MoMA-Sample.csv
-
+!Data/Samples/Pokemon-utf8-sample.csv
 .vim
