@@ -8,7 +8,7 @@ import config as cf
 import os
 
 #load pokemon file, reading, looping through the fie
-def load_data(i):
+def load_data(N):
 
         print("\n--- Joining filepath ---")
         # subfolder name
@@ -33,7 +33,8 @@ def load_data(i):
                 # getting pokemon columns
                 pocket_cols = mon
             elif i != 0:
-                pokemon_list_values.append(mon)
+                if i%N == 0:
+                    pokemon_list_values.append(mon)
             i = i + 1
 
         # pokemon file details
@@ -49,14 +50,13 @@ def load_data(i):
 
 def print_results(titulos, valores, N):
     i=0
+    list_result = list()
     for x in range(0,N):
         pokemon = "" 
         for z in range(0, len(titulos)):
             pokemon +=titulos[z]+ ": "+ valores[x][z]+" "
+            list_result.append(pokemon)
         print(pokemon,"\n")
-
-
-
 
 #Method main
 if __name__ == "__main__":
@@ -79,10 +79,11 @@ if __name__ == "__main__":
     csv.field_size_limit(CUR_MAX_SIZE_FIELD)
 
     # row counter
-    i = 0
-    N = 200
 
-    pokemon_lists = load_data(i)
-    print_results(pokemon_lists[0], pokemon_lists[1], 5)
+    secuencia_a_imprimir = int(input("ingresa la secuencia con la que deseas imprimir los pokemones"))
+    pokemon_lists = load_data(secuencia_a_imprimir)
+    datos_a_imprimir = int(input("ingresa la cantidad de pokemones que deseas imprimir"))
+
+    print_results(pokemon_lists[0], pokemon_lists[1], datos_a_imprimir)
 
     
