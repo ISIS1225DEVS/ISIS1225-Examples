@@ -124,7 +124,7 @@ def print_by_iterator(list, N):
         i = 0
         for pokemon in lt.iterator(list):
             if i<N:
-                print(pokemon)
+                print(pokemon, '\n')
                 i=i+1
             else: 
                 break
@@ -134,7 +134,7 @@ def print_by_sublist(list, N):
 
     sublist = lt.subList(list, 1, N)
     for pokemon in lt.iterator(sublist):
-        print(pokemon)
+        print(pokemon, '\n')
 
 
 def print_by_sequence(list, N):
@@ -167,43 +167,43 @@ if __name__ == "__main__":
                 position = int(input('ingresa la posicion donde quieres guardar tu pokemon'))
             pokemon_reducido = {'pokedex_num':num , 'name': name, 'type': type , 'generation':generation , 'hp': hp}
             add_pokemon(poke_list,pokemon_reducido, position, option)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
 
         elif int(option_user) == 3:
             position = int(input('ingresa la posicion tu pokemon que quieres eliminar'))
             remove_pokemon(poke_list, position)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
 
         elif int(option_user) == 4:
             remove_first_last(poke_list)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         elif int(option_user) == 5:
             res = print_info(poke_list)
             print('El tamaño del arreglo es: ', res[0], ' y el arreglo es vacio: ', res[1])
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         elif int(option_user) == 6:
             position = int(input('ingresa la posicion tu pokemon que quieres obtener'))
             print(get_element(poke_list, position))
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         elif int(option_user) == 7:
             num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_iterator(poke_list, num)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         elif int(option_user) == 8:
             num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_sublist(poke_list, num)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         elif int(option_user) == 9:
             num = int(input('Ingrese el la secuenci con la que desea imprimir\n'))
             print_by_sequence(poke_list, num)
-            print('¡La operación se realizó con exito!')
+            print('¡La operación se realizó con exito!\n')
 
         else:
             sys.exit(0)
