@@ -5,18 +5,19 @@ TODO _summary_ of this module/file CSV_FREAD
 import config as cf
 import csv
 import os
+import sys
+
 # import ADT list
 from DISClib.ADT import list as lt
+
 # imports to meassure time and memory
-# from Utils.measurements import *
+# from Utils.measuremen.ts import *
 # checking config
 assert cf
 
 # ===============================================
 # ===== util function for ADT list example ======
 # ===============================================
-
-
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
     agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
@@ -42,7 +43,20 @@ def cmp_pokedex_id(mon1, mon2):
         raise Exception
 
 
-if __name__ == "__main__":
+def printMenu():
+    print("Seleccione la opción que desea ejecutar con ArrayList:")
+    print("1- Cargar Pokemones (recuerda ejecutar esta opci''on primero que las anteriores)")
+    print("2- Agregar un Pokemon (primera posición, última o en una posición específica")
+    print("3- Eliminar un elemento determinado")
+    print("4- Eliminar el primero y ultimo elemento")
+    print("5- Imprimir la información básica del ArrayList")
+    print("6- Obtener un elemento en una posición dada")
+    print("7- Imprimir primeros n elementos recorriendo el arreglo")
+    print("8- Imprimir primeros n elementos creando una sublista")
+    print("9- Imprimir pokemones según la secuencia")
+
+
+def load_data():
     # start main()
     print("==========================================================")
     print("============== ADT List (ARRAY_LIST) example =============")
@@ -50,11 +64,9 @@ if __name__ == "__main__":
 
     print("--- Config filepath ---")
     # subfolder name
-    file_folder = "Samples"
     pokemon_fn = "Pokemon-utf8-sample.csv"
     # join pokemon file path
     pokemon_path = os.path.join(cf.data_dir,
-                                file_folder,
                                 pokemon_fn)
     print("Pokemon filepath:", pokemon_path)
 
@@ -64,10 +76,6 @@ if __name__ == "__main__":
     pokemons = csv.DictReader(open(pokemon_path,
                                    "r", encoding="utf-8"),
                               delimiter=",")
-    # row counter
-    i = 0
-    N = 100
-
     # config ADT List as ARRAY_LIST
     pokemon_lt = lt.newList(datastructure="ARRAY_LIST",
                             cmpfunction=cmp_pokedex_id,)
@@ -75,21 +83,130 @@ if __name__ == "__main__":
     # looping through pokemon file
     for mon in pokemons:
         lt.addFirst(pokemon_lt, mon)
+        
+    return pokemon_lt
+
+def add_pokemon(list, pokemon, position, option):
+    if option==1:
+        lt.addFirst(list,pokemon)
+    elif option ==2:
+        lt.addLast(list,pokemon)
+    else:
+        lt.insertElement(list,pokemon, position)
+
+
+def remove_pokemon(list, position):
+    try:
+        lt.deleteElement(list, position)
+    except Exception as exp:
+        print(" ¡Revisa que la posición del elemento que intentas eliminar si exista!")
+
+def remove_first_last(list, pokemon):
+    lt.removeFirst(list)
+    lt.removeLast(list)
+
+
+def print_info(lista):
+    size = lt.size(lista)
+    is_empty = lt.isEmpty(lista)
+    return (size, is_empty)
+
+
+def get_element(list, position):
+    return lt.getElement(list, position)
+
+
+def print_by_iterator(list, N):
+
+    if N>lt.size(list):
+        print("Estás intentando imprimir más pokemones de los que hay en la lista, ¡Cuidado!")
+    else:
+        i = 0
+        for pokemon in lt.iterator(list):
+            if i<N:
+                print(pokemon)
+                i=i+1
+            else: 
+                break
+
+
+def print_by_sublist(list, N):
+
+    sublist = lt.subList(list, 1, N)
+    for pokemon in lt.iterator(sublist):
+        print(pokemon)
+
+
+def print_by_sequence(list, N):
+    i=0
+    for pokemon in lt.iterator(list):
         if i % N == 0.0:
             # printing each N th row
             print("i:", i,
-                  "type:", type(mon), "\n"
-                  "data:", mon)
+                  "type:", type(pokemon), "\n"
+                  "data:", pokemon)
         i = i + 1
-    lts = lt.size(pokemon_lt)
 
-    print("--- Pokemon list details ---")
-    print("Pokemon list size:", lts)
-    print("File reader iterator", i)
+if __name__ == "__main__":
+    while True:
+        printMenu()
+        option_user = int(input('Seleccione una opción para continuar\n'))
 
-    print(i, lts)
+        if int(option_user) == 1:
+            poke_list = load_data()
+        elif int(option_user) == 2:
+            num = input('Ingresa el numero del pokemon\n')
+            name = input('Ingresa el nombre del pokemon\n')
+            type = input('Ingresa el tipo del pokemon\n')
+            generation = input('Ingresa la generacion del pokemon\n')
+            hp = input('Ingresa el hp del pokemon\n')
+            option = int(input('Si deseas ingresarlo al incio del arreglo ingresa 1, al final ingresa 2, de lo contrario oprime enter'))
+            position =lt.size(poke_list)
+            if option != 1 and option != 2:
+                print('Recuerda que la posición debe ser entre 0 y el tamaño del arreglo: ', position)
+                position = int(input('ingresa la posicion donde quieres guardar tu pokemon'))
+            pokemon_reducido = {'pokedex_num':num , 'name': name, 'type': type , 'generation':generation , 'hp': hp}
+            add_pokemon(poke_list,pokemon_reducido, position, option)
+            print('¡La operación se realizó con exito!')
 
 
+        elif int(option_user) == 3:
+            position = int(input('ingresa la posicion tu pokemon que quieres eliminar'))
+            remove_pokemon(poke_list, position)
+            print('¡La operación se realizó con exito!')
+
+
+        elif int(option_user) == 4:
+            remove_first_last(poke_list)
+            print('¡La operación se realizó con exito!')
+
+        elif int(option_user) == 5:
+            res = print_info(poke_list)
+            print('El tamaño del arreglo es: ', res[0], ' y el arreglo es vacio: ', res[1])
+            print('¡La operación se realizó con exito!')
+
+        elif int(option_user) == 6:
+            position = int(input('ingresa la posicion tu pokemon que quieres obtener'))
+            print(get_element(poke_list, position))
+            print('¡La operación se realizó con exito!')
+
+        elif int(option_user) == 7:
+            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
+            print_by_iterator(poke_list, num)
+            print('¡La operación se realizó con exito!')
+
+        elif int(option_user) == 8:
+            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
+            print_by_sublist(poke_list, num)
+            print('¡La operación se realizó con exito!')
+
+        elif int(option_user) == 9:
+            num = int(input('Ingrese el la secuenci con la que desea imprimir\n'))
+            print_by_sequence(poke_list, num)
+            print('¡La operación se realizó con exito!')
+
+        else:
+            sys.exit(0)
 
 
     # a = lt.newList('SINGLE_LINKED')   #Creacion de una lista vacia con listas sencillamente anlazadas
