@@ -19,7 +19,10 @@ assert cf
 # ===== util function for ADT list example ======
 # ===============================================
 
-
+# El metodo se encarga de revisar los id's de los pokemons en caso de
+# que estos sean iguales devuleve cero pero si el primer pokemon tiene 
+# un id mayot al del segundo retorna 1.
+# En el caso de que el pokemon 2 tenga un id mayor que el primero retorna -1
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
     agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
@@ -44,7 +47,8 @@ def cmp_pokedex_id(mon1, mon2):
     else:
         raise Exception
 
-
+#Se debe elegir si deseamos usar numero uno ArrayList o numero dos LinkedList
+#Deben seleccionar la numero 1 para que se ejecute la carga de pokemones
 def printMenu(estructure):
     if estructure == 1:
         print("Seleccione la opción que desea ejecutar con ArrayList:")
@@ -75,7 +79,7 @@ def printMenu(estructure):
     return int(input('Seleccione una opción para continuar\n'))
 
 
-
+#Realizacion de la carga de datos.
 def load_data(estructure):
 
     if estructure == 1:
@@ -128,7 +132,7 @@ def load_data(estructure):
             lt.addLast(pokemon_lt, mon)
     return pokemon_lt
 
-
+# Agregar el pokemon al incio 1 agregar al final 2 o un ligar en especifico oprimir enter
 def add_pokemon(list, pokemon, position, option):
 
     if option == 1:
@@ -175,7 +179,7 @@ def print_by_iterator(list, N):
             else:
                 break
 
-
+#Sublist si deseamos empezar desde el incio debemos poner como primer parametro el 1.
 def print_by_sublist(list, N):
 
     sublist = lt.subList(list, 1, N)
