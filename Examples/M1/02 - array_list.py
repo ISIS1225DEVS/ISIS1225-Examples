@@ -61,10 +61,8 @@ def printMenu(estructure):
 
     elif estructure == 2:
         print("Seleccione la opción que desea ejecutar con LinkedList:")
-        print(
-            "1- Cargar Pokemones (recuerda ejecutar esta opción primero que las anteriores)")
-        print(
-            "2- Agregar un Pokemon (primera posición, última o en una posición específica")
+        print("1- Cargar Pokemones (recuerda ejecutar esta opción primero que las anteriores)")
+        print("2- Agregar un Pokemon (primera posición, última o en una posición específica")
         print("3- Eliminar un elemento determinado")
         print("4- Eliminar el primero y ultimo elemento")
         print("5- Imprimir la información básica del List")
@@ -212,14 +210,13 @@ if __name__ == "__main__":
             type = input('Ingresa el tipo del pokemon\n')
             generation = input('Ingresa la generacion del pokemon\n')
             hp = input('Ingresa el hp del pokemon\n')
-            option = int(input(
-                'Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario oprime enter'))
+            option = int(input('Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario oprime enter\n'))
             position = lt.size(poke_list)
             if option != 1 and option != 2:
                 print(
                     'Recuerda que la posición debe ser entre 0 y el tamaño de la estructura: ', position)
                 position = int(
-                    input('ingresa la posicion donde quieres guardar tu pokemon'))
+                    input('ingresa la posicion donde quieres guardar tu pokemon\n'))
             pokemon_reducido = {'pokedex_num': num, 'name': name,
                                 'type': type, 'generation': generation, 'hp': hp}
             add_pokemon(poke_list, pokemon_reducido, position, option)
@@ -227,7 +224,7 @@ if __name__ == "__main__":
 
         elif option_user == 3:
             position = int(
-                input('ingresa la posicion tu pokemon que quieres eliminar'))
+                input('ingresa la posicion tu pokemon que quieres eliminar\n'))
             remove_pokemon(poke_list, position)
             print('¡La operación se realizó con exito!\n')
 
@@ -242,20 +239,17 @@ if __name__ == "__main__":
             print('¡La operación se realizó con exito!\n')
 
         elif option_user == 6:
-            position = int(
-                input('ingresa la posicion tu pokemon que quieres obtener'))
+            position = int(input('ingresa la posicion tu pokemon que quieres obtener\n'))
             print(get_element(poke_list, position))
             print('¡La operación se realizó con exito!\n')
 
         elif option_user == 7:
-            num = int(
-                input('Ingrese el numero de pokemones que desea imprimir\n'))
+            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_iterator(poke_list, num)
             print('¡La operación se realizó con exito!\n')
 
         elif option_user == 8:
-            num = int(
-                input('Ingrese el numero de pokemones que desea imprimir\n'))
+            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_sublist(poke_list, num)
             print('¡La operación se realizó con exito!\n')
 
@@ -269,6 +263,7 @@ if __name__ == "__main__":
             if salir:
                 sys.exit(0)
             else:
+                os.system('cls||clear')
                 estructure = int(input('\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n'))
 
 
