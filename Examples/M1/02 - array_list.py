@@ -19,7 +19,10 @@ assert cf
 # ===== util function for ADT list example ======
 # ===============================================
 
-
+# El metodo se encarga de revisar los id's de los pokemons en caso de
+# que estos sean iguales devuleve cero pero si el primer pokemon tiene 
+# un id mayot al del segundo retorna 1.
+# En el caso de que el pokemon 2 tenga un id mayor que el primero retorna -1
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
     agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
