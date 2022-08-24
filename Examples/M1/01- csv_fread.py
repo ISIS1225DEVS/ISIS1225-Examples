@@ -79,8 +79,8 @@ if __name__ == "__main__":
         elif i % N == 0.0:
             # printing each N th row
             print("i:", i,
-                "type:", type(mon), "\n"
-                "data:", mon)
+                  "type:", type(mon), "\n"
+                  "data:", mon)
         i = i + 1
 
     # pokemon file details
