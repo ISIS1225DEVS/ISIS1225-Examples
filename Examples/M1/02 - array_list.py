@@ -18,6 +18,8 @@ assert cf
 # ===============================================
 # ===== util function for ADT list example ======
 # ===============================================
+
+
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
     agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
@@ -43,56 +45,100 @@ def cmp_pokedex_id(mon1, mon2):
         raise Exception
 
 
-def printMenu():
-    print("Seleccione la opción que desea ejecutar con ArrayList:")
-    print("1- Cargar Pokemones (recuerda ejecutar esta opci''on primero que las anteriores)")
-    print("2- Agregar un Pokemon (primera posición, última o en una posición específica")
-    print("3- Eliminar un elemento determinado")
-    print("4- Eliminar el primero y ultimo elemento")
-    print("5- Imprimir la información básica del ArrayList")
-    print("6- Obtener un elemento en una posición dada")
-    print("7- Imprimir primeros n elementos recorriendo el arreglo")
-    print("8- Imprimir primeros n elementos creando una sublista")
-    print("9- Imprimir pokemones según la secuencia")
+def printMenu(estructure):
+    if estructure == 1:
+        print("Seleccione la opción que desea ejecutar con ArrayList:")
+        print("1- Cargar Pokemones (recuerda ejecutar esta opción primero que las anteriores)")
+        print("2- Agregar un Pokemon (primera posición, última o en una posición específica")
+        print("3- Eliminar un elemento determinado")
+        print("4- Eliminar el primero y ultimo elemento")
+        print("5- Imprimir la información básica del List")
+        print("6- Obtener un elemento en una posición dada")
+        print("7- Imprimir primeros n elementos recorriendo el arreglo")
+        print("8- Imprimir primeros n elementos creando una sublista")
+        print("9- Imprimir pokemones según la secuencia")
+        print("10- Salir\n")
+
+    elif estructure == 2:
+        print("Seleccione la opción que desea ejecutar con LinkedList:")
+        print(
+            "1- Cargar Pokemones (recuerda ejecutar esta opción primero que las anteriores)")
+        print(
+            "2- Agregar un Pokemon (primera posición, última o en una posición específica")
+        print("3- Eliminar un elemento determinado")
+        print("4- Eliminar el primero y ultimo elemento")
+        print("5- Imprimir la información básica del List")
+        print("6- Obtener un elemento en una posición dada")
+        print("7- Imprimir primeros n elementos recorriendo el arreglo")
+        print("8- Imprimir primeros n elementos creando una sublista")
+        print("9- Imprimir pokemones según la secuencia")
+        print("10- Salir\n")
+
+    return int(input('Seleccione una opción para continuar\n'))
 
 
-def load_data():
-    # start main()
-    print("==========================================================")
-    print("============== ADT List (ARRAY_LIST) example =============")
-    print("==========================================================\n")
 
-    print("--- Config filepath ---")
-    # subfolder name
-    pokemon_fn = "Pokemon-utf8-sample.csv"
-    # join pokemon file path
-    pokemon_path = os.path.join(cf.data_dir,
+def load_data(estructure):
+
+    if estructure == 1:
+        print("==========================================================")
+        print("============== ADT List (ARRAY_LIST) example =============")
+        print("==========================================================\n")
+
+        print("--- Config filepath ---")
+        # subfolder name
+        pokemon_fn = "Pokemon-utf8-sample.csv"
+        # join pokemon file path
+        pokemon_path = os.path.join(cf.data_dir,
                                 pokemon_fn)
-    print("Pokemon filepath:", pokemon_path)
+        print("Pokemon filepath:", pokemon_path)        
+        # reading pokemon file
+        print("+++++++ Reading Pokemon file +++++++")
+        # dict reader
+        pokemons = csv.DictReader(open(pokemon_path,
+                                       "r", encoding="utf-8"),
+                                  delimiter=",")
+        # config ADT List as ARRAY_LIST
+        pokemon_lt = lt.newList(datastructure="ARRAY_LIST",
+                                cmpfunction=cmp_pokedex_id,)        
+        # looping through pokemon file
+        for mon in pokemons:
+            lt.addLast(pokemon_lt, mon)
+    if estructure == 2:
+        print("==========================================================")
+        print("============== ADT List (LINKED_LIST) example =============")
+        print("==========================================================\n")
 
-    # reading pokemon file
-    print("+++++++ Reading Pokemon file +++++++")
-    # dict reader
-    pokemons = csv.DictReader(open(pokemon_path,
-                                   "r", encoding="utf-8"),
-                              delimiter=",")
-    # config ADT List as ARRAY_LIST
-    pokemon_lt = lt.newList(datastructure="ARRAY_LIST",
-                            cmpfunction=cmp_pokedex_id,)
-
-    # looping through pokemon file
-    for mon in pokemons:
-        lt.addFirst(pokemon_lt, mon)
+        print("--- Config filepath ---")
+        # subfolder name
+        pokemon_fn = "Pokemon-utf8-sample.csv"
+        # join pokemon file path
+        pokemon_path = os.path.join(cf.data_dir,
+                                pokemon_fn)
+        print("Pokemon filepath:", pokemon_path)        
+        # reading pokemon file
+        print("+++++++ Reading Pokemon file +++++++")
+        # dict reader
+        pokemons = csv.DictReader(open(pokemon_path,
+                                       "r", encoding="utf-8"),
+                                  delimiter=",")
+        # config ADT List as ARRAY_LIST
+        pokemon_lt = lt.newList('SINGLE_LINKED')   #Creacion de una lista vacia con listas sencillamente anlazadas
         
+        # looping through pokemon file
+        for mon in pokemons:
+            lt.addLast(pokemon_lt, mon)
     return pokemon_lt
 
+
 def add_pokemon(list, pokemon, position, option):
-    if option==1:
-        lt.addFirst(list,pokemon)
-    elif option ==2:
-        lt.addLast(list,pokemon)
+
+    if option == 1:
+        lt.addFirst(list, pokemon)
+    elif option == 2:
+        lt.addLast(list, pokemon)
     else:
-        lt.insertElement(list,pokemon, position)
+        lt.insertElement(list, pokemon, position)
 
 
 def remove_pokemon(list, position):
@@ -101,7 +147,8 @@ def remove_pokemon(list, position):
     except Exception as exp:
         print(" ¡Revisa que la posición del elemento que intentas eliminar si exista!")
 
-def remove_first_last(list, pokemon):
+
+def remove_first_last_(list):
     lt.removeFirst(list)
     lt.removeLast(list)
 
@@ -118,15 +165,16 @@ def get_element(list, position):
 
 def print_by_iterator(list, N):
 
-    if N>lt.size(list):
-        print("Estás intentando imprimir más pokemones de los que hay en la lista, ¡Cuidado!")
+    if N > lt.size(list):
+        print(
+            "Estás intentando imprimir más pokemones de los que hay en la lista, ¡Cuidado!")
     else:
         i = 0
         for pokemon in lt.iterator(list):
-            if i<N:
+            if i < N:
                 print(pokemon, '\n')
-                i=i+1
-            else: 
+                i = i+1
+            else:
                 break
 
 
@@ -138,7 +186,7 @@ def print_by_sublist(list, N):
 
 
 def print_by_sequence(list, N):
-    i=0
+    i = 0
     for pokemon in lt.iterator(list):
         if i % N == 0.0:
             # printing each N th row
@@ -147,66 +195,82 @@ def print_by_sequence(list, N):
                   "data:", pokemon)
         i = i + 1
 
-if __name__ == "__main__":
-    while True:
-        printMenu()
-        option_user = int(input('Seleccione una opción para continuar\n'))
 
-        if int(option_user) == 1:
-            poke_list = load_data()
-        elif int(option_user) == 2:
+if __name__ == "__main__":
+    estructure = int(input('Selecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n'))
+    while True:
+
+        option_user= printMenu(estructure)
+
+        if option_user == 1:
+            poke_list = load_data(estructure)
+            print('¡La operación se realizó con exito!\n')
+
+        elif option_user == 2:
             num = input('Ingresa el numero del pokemon\n')
             name = input('Ingresa el nombre del pokemon\n')
             type = input('Ingresa el tipo del pokemon\n')
             generation = input('Ingresa la generacion del pokemon\n')
             hp = input('Ingresa el hp del pokemon\n')
-            option = int(input('Si deseas ingresarlo al incio del arreglo ingresa 1, al final ingresa 2, de lo contrario oprime enter'))
-            position =lt.size(poke_list)
+            option = int(input(
+                'Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario oprime enter'))
+            position = lt.size(poke_list)
             if option != 1 and option != 2:
-                print('Recuerda que la posición debe ser entre 0 y el tamaño del arreglo: ', position)
-                position = int(input('ingresa la posicion donde quieres guardar tu pokemon'))
-            pokemon_reducido = {'pokedex_num':num , 'name': name, 'type': type , 'generation':generation , 'hp': hp}
-            add_pokemon(poke_list,pokemon_reducido, position, option)
+                print(
+                    'Recuerda que la posición debe ser entre 0 y el tamaño de la estructura: ', position)
+                position = int(
+                    input('ingresa la posicion donde quieres guardar tu pokemon'))
+            pokemon_reducido = {'pokedex_num': num, 'name': name,
+                                'type': type, 'generation': generation, 'hp': hp}
+            add_pokemon(poke_list, pokemon_reducido, position, option)
             print('¡La operación se realizó con exito!\n')
 
-
-        elif int(option_user) == 3:
-            position = int(input('ingresa la posicion tu pokemon que quieres eliminar'))
+        elif option_user == 3:
+            position = int(
+                input('ingresa la posicion tu pokemon que quieres eliminar'))
             remove_pokemon(poke_list, position)
             print('¡La operación se realizó con exito!\n')
 
-
-        elif int(option_user) == 4:
-            remove_first_last(poke_list)
+        elif option_user == 4:
+            remove_first_last_(poke_list)
             print('¡La operación se realizó con exito!\n')
 
-        elif int(option_user) == 5:
+        elif option_user == 5:
             res = print_info(poke_list)
-            print('El tamaño del arreglo es: ', res[0], ' y el arreglo es vacio: ', res[1])
+            print('El tamaño del arreglo es: ',
+                  res[0], ' y el arreglo es vacio: ', res[1])
             print('¡La operación se realizó con exito!\n')
 
-        elif int(option_user) == 6:
-            position = int(input('ingresa la posicion tu pokemon que quieres obtener'))
+        elif option_user == 6:
+            position = int(
+                input('ingresa la posicion tu pokemon que quieres obtener'))
             print(get_element(poke_list, position))
             print('¡La operación se realizó con exito!\n')
 
-        elif int(option_user) == 7:
-            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
+        elif option_user == 7:
+            num = int(
+                input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_iterator(poke_list, num)
             print('¡La operación se realizó con exito!\n')
 
-        elif int(option_user) == 8:
-            num = int(input('Ingrese el numero de pokemones que desea imprimir\n'))
+        elif option_user == 8:
+            num = int(
+                input('Ingrese el numero de pokemones que desea imprimir\n'))
             print_by_sublist(poke_list, num)
             print('¡La operación se realizó con exito!\n')
 
-        elif int(option_user) == 9:
+        elif option_user == 9:
             num = int(input('Ingrese el la secuenci con la que desea imprimir\n'))
             print_by_sequence(poke_list, num)
             print('¡La operación se realizó con exito!\n')
 
         else:
-            sys.exit(0)
+            salir = int(input('¿Quieres cambiar de estructura?\n 1. Si\n 2. No\n')) - 1
+            if salir:
+                sys.exit(0)
+            else:
+                estructure = int(input('\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n'))
+
 
 
     # a = lt.newList('SINGLE_LINKED')   #Creacion de una lista vacia con listas sencillamente anlazadas
@@ -224,7 +288,7 @@ if __name__ == "__main__":
     # elem  = lt.firstElement(a)        # elem = "b"
     # elem  = lt.lastElement(a)         # elem = "c"
     # elem  = lt.getElement(a, 3)       # elem = "x"
-    # lt.isEmpty(a)                     # => False                    
+    # lt.isEmpty(a)                     # => False
 
     # #Cambiar un elemento
     # lt.changeInfo(a, 1, "w")          # a =["w", "z", "x", "a", "c"]
@@ -234,12 +298,10 @@ if __name__ == "__main__":
     # lt.removeLast(a)                  # a = ["z", "x", "a"]
     # lt.deleteElement(a, 2)            # a = ["z", "a"]
 
-
     # # Recorrer una lista
     # for n in lt.iterator(a):
     #   print(n)
-    
-    
+
     # =================================
     # # Ejemplos Avanzados
     # #=================================
@@ -251,8 +313,7 @@ if __name__ == "__main__":
     #         return 1
     #     return -1
 
-
-    # a = lt.newList('ARRAY_LIST', 
+    # a = lt.newList('ARRAY_LIST',
     #     cmpfunction=compararElementos) #Creacion de una lista vacia, los elementos se pueden comparar con cmpfunction (para poder usar lt.isPresent)
 
     # lt.addLast(a, 'a')                # a = ["a"]
@@ -264,13 +325,6 @@ if __name__ == "__main__":
     # lt.exchange(a, 2, 4)              # a = ["a", "d", "c", "b"]
     # sublista = lt.subList(a, 2, 3)    # sublista = ["d", "c", "b"]
 
-
-    # lt.isPresent(a, "z")              # => 0, no esta 
-    # lt.isPresent(a, "a")              # => 1, esta en la posicion 1 
+    # lt.isPresent(a, "z")              # => 0, no esta
+    # lt.isPresent(a, "a")              # => 1, esta en la posicion 1
     # lt.isPresent(a, "d")              # => 2, esta en la posicion 2
-
-
-
-
-
-
