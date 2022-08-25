@@ -102,7 +102,7 @@ def load_data(estructure):
         # looping through pokemon file
         for mon in pokemons:
             lt.addLast(pokemon_lt, mon)
-    if estructure == 2:
+    elif estructure == 2:
         print("==========================================================")
         print("============== ADT List (LINKED_LIST) example =============")
         print("==========================================================\n")
