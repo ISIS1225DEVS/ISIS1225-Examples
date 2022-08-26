@@ -202,8 +202,8 @@ def load_data(folder_name, file_name):
         # concatenando el nombre del archivo con las carpetas de datos
         pokemon_fpath = os.path.join(cf.data_dir,
                                      folder_name,
-                                     pokemon_fn)
-        # print("Pokemon filepath:", pokemon_fpath)
+                                     file_name)
+        print("ubicando el archivo de pokemon en:", pokemon_fpath)
 
         # abriendo el archivo CSV
         pokemon_file = open(pokemon_fpath, "r", encoding="utf-8")
@@ -287,7 +287,7 @@ if __name__ == "__main__":
     print("===============================================================")
 
     # variables de configuracion
-    poke_folder = "Pokemons"
+    poke_folder = "Samples"
     pokemon_fn = "Pokemon-utf8-sample.csv"
     pokemon_lt = None
     working = True
