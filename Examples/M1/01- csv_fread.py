@@ -114,6 +114,7 @@ def load_data(folder_name, file_name):
     lista de diccionarios
 
     Args:
+        folder_name (str): nombre del directorio donde se encuentra el archivo
         file_name (str): nombre del archivo CSV a cargar
 
     Raises:
@@ -131,7 +132,7 @@ def load_data(folder_name, file_name):
         pokemon_fpath = os.path.join(cf.data_dir,
                                      folder_name,
                                      file_name)
-        print("ubicando el archivo de pokemon en:", pokemon_fpath)
+        print("Archivo ubicado en:", pokemon_fpath)
 
         # abriendo el archivo CSV
         pokemon_file = open(pokemon_fpath, "r", encoding="utf-8")
@@ -159,24 +160,25 @@ def print_options():
     print_options imprime un menu de opciones para
 
     Returns:
-        int: la opcion elegida por el usuario
+        opt_usr (int): la opcion elegida por el usuario
     """
     print("\n++++++++++++++++++++++ MENU PRINCIPAL +++++++++++++++++++++++++")
     print("\t1. configurar el buffer de lectura para archivos CSV.")
     print("\t2. leer un archivo CSV y cargarlo en un ADT list.")
     print("\t3. mostrar los datos en el ADT List.")
     print("\t4. eliminar los datos del ADT List.")
+    print("\t5. Salir.")
     print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
     opt_usr = int(input("Seleccione una opción para continuar:"))
     return opt_usr
 
 
-def print_pokemon_lt(lt_pokemon, n_th=NTH):
+def print_pokemon_lt(pokemon_lt, n_th=NTH):
     """print_pokemon_lt imprime cada n_th elementos los datos de un
     ADT list.
 
     Args:
-        lt_pokemon (ADT List): el ADT list de los pokemon a imprimir
+        pokemon_lt (ADT List): el ADT list de los pokemon a imprimir
         n_th (in, optional): la frecuencia de impresion de los datos.
         por defecto es NTH.
     """
@@ -184,7 +186,7 @@ def print_pokemon_lt(lt_pokemon, n_th=NTH):
     # contador de trabajo para imprimir los registros
     i = 0
     # imprimiendo los nombres de las columnas del archivo CSV
-    poke_cols = list(lt.firstElement(lt_pokemon).keys())
+    poke_cols = list(lt.firstElement(pokemon_lt).keys())
     print("\n++++++ los campos de la lista de Pokemon son:")
     for col in poke_cols:
         print("\t - '" + str(col) + "'")
@@ -192,7 +194,7 @@ def print_pokemon_lt(lt_pokemon, n_th=NTH):
     print("Imprimiendo cada", str(n_th), "elementos de la lista de Pokemon...")
 
     # iterando sobre los registros de pokemons en el ADT list
-    for mon in lt.iterator(lt_pokemon):
+    for mon in lt.iterator(pokemon_lt):
         # calculando el modulo del contador de trabajo
         if i % n_th == 0.0:
             # imprimiendo el registro de la n-esima vez
@@ -202,8 +204,14 @@ def print_pokemon_lt(lt_pokemon, n_th=NTH):
                   "data:", mon, "\n")
         # incrementando el contador de trabajo
         i = i + 1
-    print("++++++ total de registros:", lt.size(lt_pokemon))
+    print("++++++ total de registros:", lt.size(pokemon_lt))
 
+
+# =============================================================================
+# ===================== variables utiles para el programa =====================
+# =============================================================================
+
+exit_lt_opt = ("s", "S", "1", True, "true", "True", "si", "Si", "SI")
 
 # main del ejercicio
 if __name__ == "__main__":
@@ -245,15 +253,13 @@ if __name__ == "__main__":
             new_buffer_size = config_buffer(buffer_size)
             print("El tamaño del buffer ahora es:", new_buffer_size)
             print(WARNING_BUFFER_SIZE)
-            print("¡La operación fue exitosa!\n")
 
         # opcion 2: cargar los datos de un archivo CSV
         elif opt_usr == 2:
             print("\nCargando los datos del archivo CSV...")
-            print("\tArchivo:", pokemon_fn)
+            print("Archivo:", pokemon_fn)
             pokemon_lt = load_data(poke_folder, pokemon_fn)
             print("la lista tiene", lt.size(pokemon_lt), "pokemons")
-            print("¡La operación fue exitosa!\n")
 
         # opcion 3: mostrar los datos del ADT List
         elif opt_usr == 3:
@@ -261,7 +267,6 @@ if __name__ == "__main__":
             input_str = "Seleccione la frecuencia de impresion: "
             n_th = int(input(input_str))
             print_pokemon_lt(pokemon_lt, n_th)
-            print("¡La operación fue exitosa!\n")
 
         # opcion 4: eliminar los datos del ADT List
         elif opt_usr == 4:
@@ -269,7 +274,6 @@ if __name__ == "__main__":
             pokemon_lt = None
             print("Se eliminaron los datos del ADT List")
             dsize = gc.collect()
-            print("¡La operación fue exitosa!\n")
 
         # finalizar el programa
         else:
@@ -277,7 +281,10 @@ if __name__ == "__main__":
             end_str = "¿desea salir del programa? (s/n): "
             opt_usr = input(end_str)
             # diferentes opciones de salida
-            if opt_usr in ("s", "S", "1", True, "true", "True", "si", "Si"):
+            if opt_usr in exit_lt_opt:
                 working = False
+                print("\nGracias por utilizar el programa.")
+        # mensaje de exito de la operacion
+        print("¡La operación fue exitosa!\n")
     # fin del programa
     sys.exit(0)
