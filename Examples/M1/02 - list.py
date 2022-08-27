@@ -69,14 +69,11 @@ assert cf
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
     agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
-
     Args:
         mon1 (dict): primer registro de pokemon a comparar
         mon2 (dict): segundo registro de pokemon a comparar
-
     Raises:
         Exception: devuelve un error generico en cualquier otro caso
-
     Returns:
         int: -1 si la comparacion es es menor, 0 si es igual, 1 si es mayor
     """
@@ -101,10 +98,8 @@ def cmp_pokedex_id(mon1, mon2):
 
 def printMenu(struct_cfg):
     """printMenu _summary_
-
     Args:
         struct_cfg (_type_): _description_
-
     Returns:
         _type_: _description_
     """
@@ -130,10 +125,8 @@ def printMenu(struct_cfg):
 
 def load_data(struct_cfg, pokemons_file):
     """load_data _summary_
-
     Args:
         struct_cfg (_type_): _description_
-
     Returns:
         _type_: _description_
     """
@@ -170,7 +163,6 @@ def load_data(struct_cfg, pokemons_file):
 
 def add_pokemon(pokemon_lt, pokemon, position, option):
     """add_pokemon _summary_
-
     Args:
         pokemon_lt (_type_): _description_
         pokemon (_type_): _description_
@@ -198,7 +190,6 @@ def remove_pokemon(pokemon_lt, position):
 
 def remove_first_last_pokemon(pokemon_lt):
     """remove_first_last_pokemon _summary_
-
     Args:
         pokemon_lt (_type_): _description_
     """
@@ -208,10 +199,8 @@ def remove_first_last_pokemon(pokemon_lt):
 
 def print_info(pokemon_lt):
     """print_info _summary_
-
     Args:
         pokemon_lt (_type_): _description_
-
     Returns:
         _type_: _description_
     """
@@ -222,11 +211,9 @@ def print_info(pokemon_lt):
 
 def get_element(pokemon_lt, position):
     """get_element _summary_
-
     Args:
         pokemon_lt (_type_): _description_
         position (_type_): _description_
-
     Returns:
         _type_: _description_
     """
@@ -356,4 +343,3 @@ if __name__ == "__main__":
             else:
                 os.system("cls||clear")
                 struct_cfg = int(input("\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n"))
-
