@@ -5,17 +5,14 @@ Universidad de Los Andes, Bogotá, Colombia.
 Desarrollado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
 
 Este módulo contiene un menú de que permite al usuario realizar diferentes
-funciones con el ADT List como:
-    - Elegir la configuracion del ADT List (ARRAY_LIST o LINKED_LIST)
+funciones con el ADT Sorting como:
+    - Elegir la configuracion del ADT Sortin (Iterative_Sorting o Recursive_LISSorting)
     - Cargar los elementos a la lista desde un archivo csv
-    - Agregar un elemento al inicio, al final o en una posición especifica
-    - Eliminar un elemento especifico
-    - Eliminar el primero y ultimo elemento de la lista
-    - Imprimir la información básica de la lista
-    - Leer un pokemon en una posición especifica
+    - Ordenar ascendentemente los pokemones por numero 
+    - Ordenar acendentemente los pokemones por nombre
+    - Ordenar descendentemente los pokemones por numero
+    - Ordenar descendentemente los pokemones por nombre   
     - Imprimir los primeros N elementos recorriendo la lista
-    - Imprimir los primeros N elementos creando una sublista
-    - Imprimir los elementos de la lista según una secuencia
     - Salir del programa
 Este es un programa de ejemplo para la clase de Estructura de Datos y
 Algoritmos en la Universidad de los Andes (Uniandes) en Bogotá Colombia.
@@ -220,7 +217,7 @@ if __name__ == "__main__":
     print("=========Ejemplos ADT Sort ====================================")
     print("===============================================================\n")
     
-    # opciones de estructura de datos ARRAY_LIST o SINGLE_LINKED
+    # opciones de estructura de datos IterativeSorting o RecursiveSorting
     io_cfg = "Selecciona el tipo de ordenamiento (1. IterativeSorting || 2. RecursiveSorting):\n"
     sort_cfg = int(input(io_cfg))
     
@@ -270,4 +267,4 @@ if __name__ == "__main__":
                 sys.exit(0)
             else:
                 os.system("cls||clear")
-                #struct_cfg = int(input("\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n"))
+                #struct_cfg = int(input("\n\nSelecciona el ordenamiento que deseas utilizar\n 1. Iterative Sorting\n 2. Recursive Sorting\n"))
