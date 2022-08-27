@@ -1,23 +1,69 @@
 """
-TODO _summary_ of this module/file ADT List
-"""
-# lib imports
-import config as cf
-import csv
-import os
-import sys
+Copyright 2022, Departamento de sistemas y Computación,
+Universidad de Los Andes, Bogotá, Colombia.
 
-# import ADT list
+Desarrollado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
+
+Este módulo contiene un menú de que permite al usuario realizar diferentes
+funciones con el ADT List como:
+    - Elegir la configuracion del ADT List (ARRAY_LIST o LINKED_LIST)
+    - Cargar los elementos a la lista desde un archivo csv
+    - Agregar un elemento al inicio, al final o en una posición especifica
+    - Eliminar un elemento especifico
+    - Eliminar el primero y ultimo elemento de la lista
+    - Imprimir la información básica de la lista
+    - Leer un pokemon en una posición especifica
+    - Imprimir los primeros N elementos recorriendo la lista
+    - Imprimir los primeros N elementos creando una sublista
+    - Imprimir los elementos de la lista según una secuencia
+    - Salir del programa
+Este es un programa de ejemplo para la clase de Estructura de Datos y
+Algoritmos en la Universidad de los Andes (Uniandes) en Bogotá Colombia.
+
+Contribuciones de:
+    - Luis Florez - implementación inicial
+    - Santiago Arteaga - segunda versión y refactorización del código
+    - Daniel Alejandro Angel - implementación de ejemplos y pruebas
+    - Melissa Castañeda - implementación de ejemplos y pruebas
+    - Jesus Pinchao - implementación de ejemplos y pruebas
+
+###############################################################################
+# IMPORTANTE: este código de ejemplo no sigue el patron MVC para simplificar
+# su manejo y entendimiento. El código debe ser refactorizado para utilizarse
+# en los laboratorios y retos de la clase.
+###############################################################################
+"""
+
+# importaciones de librerias
+import csv
+import gc
+import sys
+import config as cf
+import os
+
+# importaciones de modulos DISCLib
 from DISClib.ADT import list as lt
 
-# imports to meassure time and memory
-# from Utils.measuremen.ts import *
-# checking config
+# variables globales
+# tamaño maximo del buffer de lectura de archivos CSV
+SYS_MAX_SIZE_FIELD = sys.maxsize
+# tamano recomendado del buffer de lectura de archivos CSV
+CUR_MAX_SIZE_FIELD = pow(2, 31) - 1
+# texto de ayuda para el usuario
+WARNING_BUFFER_SIZE = """
+Recuerde que el tamaño del buffer debe ser menor o igual al tamaño máximo
+del buffer en la configuración del sistema. Y que el tamaño del buffer debe
+ser lo suficientemente grande para contener todos los registros del archivo.
+"""
+# frecuencia de impresion de registros
+NTH = 200
+
+# chequeando si la configuracion esta activa
 assert cf
 
-# ===============================================
-# ===== util function for ADT list example ======
-# ===============================================
+# =============================================================================
+# ================== Funciones para configurar el ADT List ====================
+# =============================================================================
 
 
 def cmp_pokedex_id(mon1, mon2):
@@ -34,15 +80,23 @@ def cmp_pokedex_id(mon1, mon2):
     Returns:
         int: -1 si la comparacion es es menor, 0 si es igual, 1 si es mayor
     """
+    # llave de diccionaro para el numero de pokedex
     id_key = "pokedex_num"
+    # en caso de que el pokemon1 sea igual al pokemon2
     if (mon1[id_key] == mon2[id_key]):
+        # retorna cero 0
         return 0
+    # en caso de que el pokemon1 sea mayor al pokemon2
     elif (mon1[id_key] > mon2[id_key]):
+        # retorna uno 1
         return 1
+    # en caso de que el pokemon1 sea menor al pokemon2
     elif (mon1[id_key] < mon2[id_key]):
+        # retorna uno -1
         return -1
     else:
         raise Exception
+
 
 
 def printMenu(struct_cfg):
