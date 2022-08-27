@@ -35,14 +35,17 @@ Contribuciones de:
 """
 
 # importaciones de librerias
+import config as cf
 import csv
 import gc
 import sys
-import config as cf
 import os
 
 # importaciones de modulos DISCLib
 from DISClib.ADT import list as lt
+from DISClib.Algorithms.Sorting import mergesort as me
+
+from DISClib.Algorithms.Sorting import insertionsort
 
 # variables globales
 # tamaño maximo del buffer de lectura de archivos CSV
@@ -61,14 +64,10 @@ NTH = 200
 # chequeando si la configuracion esta activa
 assert cf
 
-# =============================================================================
-# ================== Funciones para configurar el ADT List ====================
-# =============================================================================
-
-
+#Se compara el id de los pokemones para agregarlos en un lista
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
-    agregarlo en una lista, sea ARRAY_LIST o LINKED_LIST
+    agregarlo en una lista
 
     Args:
         mon1 (dict): primer registro de pokemon a comparar
@@ -97,8 +96,36 @@ def cmp_pokedex_id(mon1, mon2):
     else:
         raise Exception
 
+#Funcion sort
+def sortFunction(sorted_list, cmpfunction):
+    me.sort(sorted_list, cmpfunction)
+    return sorted_list
+
+#Comparar por numero
+def compareElem(pokemonUno, pokemonDos):
+    return (float(pokemonUno['pokedex_num']) < float(pokemonDos['pokedex_num']))
+
+#Comparar por el nombre del pokemon
+def comparetitle(pokemon1, pokemon2):
+    if(pokemon1['name'] != pokemon2['name']):
+        return (pokemon1['name'] < pokemon2['name'])
+    else:
+        return (pokemon1['pokedex_num']<pokemon2['pokedex_num'])
+
+#Comparar por numero
+def compareElemDes(pokemonUno, pokemonDos):
+    return (float(pokemonUno['pokedex_num']) > float(pokemonDos['pokedex_num']))
+
+#Comparar por el nombre del pokemon
+def comparetitleDes(pokemon1, pokemon2):
+    if(pokemon1['name'] != pokemon2['name']):
+        return (pokemon1['name'] > pokemon2['name'])
+    else:
+        return (pokemon1['pokedex_num']>pokemon2['pokedex_num'])
 
 
+
+# El menu para elegir el tipo de sort que se desea ejecturar
 def printMenu(struct_cfg):
     """printMenu _summary_
 
@@ -109,21 +136,19 @@ def printMenu(struct_cfg):
         _type_: _description_
     """
     if struct_cfg == 1:
-        print("Seleccione la opción que desea ejecutar para ARRAY_LIST:")
+        print("Seleccione la opción que desea ejecutar para iterative_sorting:")
 
     elif struct_cfg == 2:
-        print("Seleccione la opción que desea ejecutar para LINKED_LIST:")
+        print("Seleccione la opción que desea ejecutar para recursive_sorting:")
 
     print("1- Cargar Pokemones (Ejecuta esta opción primero que las demás).")
-    print("2- Agregar un Pokemon (al inicio, al final, o en una posición).")
-    print("3- Eliminar un Pokemon especifico.")
-    print("4- Eliminar el primero y ultimo Pokemon.")
-    print("5- Imprimir la información básica de la lista.")
-    print("6- Leer un Pokemon en una posición especifica.")
+    print("2- Organizar los pokemones por el numero del pokemon ascendente.")
+    print("3- Organizar los pokemones por el nombre del pokemon ascendente.")
+    print("4- Organizar los pokemones por el numero del pokemon descendente.")
+    print("5- Organizar los pokemones por el nombre del pokemon descendente.")
+    print("6- Imprimir la información básica de la lista.")
     print("7- Imprimir los primeros N Pokemons recorriendo el arreglo")
-    print("8- Imprimir los primeros N Pokemons creando una sublista")
-    print("9- Imprimir los Pokemons según la secuencia")
-    print("10- Salir\n")
+    print("8- Salir\n")
 
     return int(input("Seleccione una opción para continuar\n"))
 
@@ -150,14 +175,7 @@ def load_data(struct_cfg, pokemons_file):
                                    "r", encoding="utf-8"),
                               delimiter=",")
 
-    if struct_cfg == 1:
-        # config ADT List as ARRAY_LIST
-        pokemon_lt = lt.newList(datastructure="ARRAY_LIST",
-                                cmpfunction=cmp_pokedex_id,)
-
-    if struct_cfg == 2:
-        # config ADT List as ARRAY_LIST
-        pokemon_lt = lt.newList("SINGLE_LINKED",
+    pokemon_lt = lt.newList(datastructure="ARRAY_LIST",
                                 cmpfunction=cmp_pokedex_id,)
 
     # looping through pokemon file
@@ -166,72 +184,6 @@ def load_data(struct_cfg, pokemons_file):
 
     # return pokemon ADT list
     return pokemon_lt
-
-
-def add_pokemon(pokemon_lt, pokemon, position, option):
-    """add_pokemon _summary_
-
-    Args:
-        pokemon_lt (_type_): _description_
-        pokemon (_type_): _description_
-        position (_type_): _description_
-        option (_type_): _description_
-    """
-
-    if option == 1:
-        # adding pokemon to the beginning of the list
-        lt.addFirst(pokemon_lt, pokemon)
-    elif option == 2:
-        # adding pokemon to the end of the list
-        lt.addLast(pokemon_lt, pokemon)
-    else:
-        # adding pokemon to the position of the list
-        lt.insertElement(pokemon_lt, pokemon, position)
-
-
-def remove_pokemon(pokemon_lt, position):
-    try:
-        lt.deleteElement(pokemon_lt, position)
-    except Exception as exp:
-        print(" ¡Revisa que la posición del elemento que intentas eliminar si exista!")
-
-
-def remove_first_last_pokemon(pokemon_lt):
-    """remove_first_last_pokemon _summary_
-
-    Args:
-        pokemon_lt (_type_): _description_
-    """
-    lt.removeFirst(pokemon_lt)
-    lt.removeLast(pokemon_lt)
-
-
-def print_info(pokemon_lt):
-    """print_info _summary_
-
-    Args:
-        pokemon_lt (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    size = lt.size(pokemon_lt)
-    is_empty = lt.isEmpty(pokemon_lt)
-    return (size, is_empty)
-
-
-def get_element(pokemon_lt, position):
-    """get_element _summary_
-
-    Args:
-        pokemon_lt (_type_): _description_
-        position (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    return lt.getElement(pokemon_lt, position)
-
 
 def print_by_iterator(pokemon_lt, N):
 
@@ -248,33 +200,29 @@ def print_by_iterator(pokemon_lt, N):
                 break
 
 
-def print_by_sublist(pokemon_lt, N):
+def print_info(pokemon_lt):
+    """print_info _summary_
 
-    sublist = lt.subList(pokemon_lt, 1, N)
-    for pokemon in lt.iterator(sublist):
-        print(pokemon, "\n")
+    Args:
+        pokemon_lt (_type_): _description_
 
-
-def print_by_sequence(pokemon_lt, N):
-    i = 0
-    for pokemon in lt.iterator(pokemon_lt):
-        if i % N == 0.0:
-            # printing each N th row
-            print("i:", i,
-                  "type:", type(pokemon), "\n"
-                  "data:", pokemon)
-        i = i + 1
+    Returns:
+        _type_: _description_
+    """
+    size = lt.size(pokemon_lt)
+    is_empty = lt.isEmpty(pokemon_lt)
+    return (size, is_empty)
 
 
 if __name__ == "__main__":
 
     print("===============================================================")
-    print("========= Ejemplo ADT List (ARRAY_LIST/SINGLE_LINKED) =========")
+    print("=========Ejemplos ADT Sort ====================================")
     print("===============================================================\n")
     
     # opciones de estructura de datos ARRAY_LIST o SINGLE_LINKED
-    io_cfg = "Selecciona el tipo de lista (1. ArrayList || 2. LinkedList):\n"
-    struct_cfg = int(input(io_cfg))
+    io_cfg = "Selecciona el tipo de ordenamiento (1. IterativeSorting || 2. RecursiveSorting):\n"
+    sort_cfg = int(input(io_cfg))
     
     # nombre del archivo de datos
     pokemon_fn = "Pokemon-utf8-sample.csv"
@@ -283,70 +231,37 @@ if __name__ == "__main__":
     while True:
 
         # imprimir menu
-        option_user = printMenu(struct_cfg)
+        option_user = printMenu(sort_cfg)
 
         if option_user == 1:
-            poledex_lt = load_data(struct_cfg, pokemon_fn)
+            poledex_lt = load_data(sort_cfg, pokemon_fn)
             print("¡La operación se realizó con exito!\n")
 
         elif option_user == 2:
-            poke_num = input("Ingresa el numero del pokemon\n")
-            poke_name = input("Ingresa el nombre del pokemon\n")
-            poke_type = input("Ingresa el tipo del pokemon\n")
-            poke_gen = input("Ingresa la generacion del pokemon\n")
-            hp = input("Ingresa el hp del pokemon\n")
-            option = int(input("Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario ingresa 3\n"))
-            position = lt.size(poledex_lt)
-            if option != 1 and option != 2:
-                print(
-                    "Recuerda que la posición debe ser entre 0 y el tamaño de la estructura: ", position)
-                position = int(
-                    input("ingresa la posicion donde quieres guardar tu pokemon\n"))
-
-            pokemon_lite = {
-                "pokedex_num": poke_num,
-                "name": poke_name,
-                "type": poke_type,
-                "generation": poke_gen,
-                "hp": hp}
-            
-            add_pokemon(poledex_lt, pokemon_lite, position, option)
+            sortFunction(poledex_lt, compareElem)
             print("¡La operación se realizó con exito!\n")
 
         elif option_user == 3:
-            position = int(
-                input("ingresa la posicion del pokemon que quieres eliminar\n"))
-            remove_pokemon(poledex_lt, position)
+            sortFunction(poledex_lt, comparetitle)
             print("¡La operación se realizó con exito!\n")
 
         elif option_user == 4:
-            remove_first_last_pokemon(poledex_lt)
+            sortFunction(poledex_lt, compareElemDes)
             print("¡La operación se realizó con exito!\n")
 
         elif option_user == 5:
+            sortFunction(poledex_lt, comparetitleDes)
+            print("¡La operación se realizó con exito!\n")
+
+        elif option_user == 6:
             res = print_info(poledex_lt)
             print("El tamaño del arreglo es: ",
                   res[0], " y el arreglo es vacio: ", res[1])
             print("¡La operación se realizó con exito!\n")
 
-        elif option_user == 6:
-            position = int(input("ingresa la posicion tu pokemon que quieres obtener\n"))
-            print(get_element(poledex_lt, position))
-            print("¡La operación se realizó con exito!\n")
-
-        elif option_user == 7:
+        elif option_user ==7:
             poke_num = int(input("Ingrese el numero de pokemones que desea imprimir\n"))
             print_by_iterator(poledex_lt, poke_num)
-            print("¡La operación se realizó con exito!\n")
-
-        elif option_user == 8:
-            poke_num = int(input("Ingrese el numero de pokemones que desea imprimir\n"))
-            print_by_sublist(poledex_lt, poke_num)
-            print("¡La operación se realizó con exito!\n")
-
-        elif option_user == 9:
-            poke_num = int(input("Ingrese el la secuenci con la que desea imprimir\n"))
-            print_by_sequence(poledex_lt, poke_num)
             print("¡La operación se realizó con exito!\n")
 
         else:
@@ -355,5 +270,4 @@ if __name__ == "__main__":
                 sys.exit(0)
             else:
                 os.system("cls||clear")
-                struct_cfg = int(input("\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n"))
-
+                #struct_cfg = int(input("\n\nSelecciona la estructura que deseas utilizar\n 1. Arraylist\n 2. LinkedList\n"))
