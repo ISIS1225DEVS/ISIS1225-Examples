@@ -50,10 +50,13 @@ ser lo suficientemente grande para contener todos los registros del archivo.
 # frecuencia de impresion de registros
 NTH = 200
 
+# chequeando si la configuracion esta activa
+assert cf
 
 # =============================================================================
 # ================== Funciones para configurar el ADT List ====================
 # =============================================================================
+
 
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
@@ -69,12 +72,19 @@ def cmp_pokedex_id(mon1, mon2):
     Returns:
         int: -1 si la comparacion es es menor, 0 si es igual, 1 si es mayor
     """
+    # llave de diccionaro para el numero de pokedex
     id_key = "pokedex_num"
+    # en caso de que el pokemon1 sea igual al pokemon2
     if (mon1[id_key] == mon2[id_key]):
+        # retorna cero 0
         return 0
+    # en caso de que el pokemon1 sea mayor al pokemon2
     elif (mon1[id_key] > mon2[id_key]):
+        # retorna uno 1
         return 1
+    # en caso de que el pokemon1 sea menor al pokemon2
     elif (mon1[id_key] < mon2[id_key]):
+        # retorna uno -1
         return -1
     else:
         raise Exception
@@ -110,7 +120,7 @@ def load_data(folder_name, file_name):
         Exception: devuelve un error generico en cualquier otro caso
 
     Returns:
-        list: ADT list de diccionarios con los datos del archivo CSV
+        ADT list: ADT list de diccionarios con los datos del archivo CSV
     """
 
     # creando y configurando el ADT list para almacenar los pokemon
@@ -162,6 +172,14 @@ def print_options():
 
 
 def print_pokemon_lt(lt_pokemon, n_th=NTH):
+    """print_pokemon_lt imprime cada n_th elementos los datos de un
+    ADT list.
+
+    Args:
+        lt_pokemon (ADT List): el ADT list de los pokemon a imprimir
+        n_th (in, optional): la frecuencia de impresion de los datos.
+        por defecto es NTH.
+    """
 
     # contador de trabajo para imprimir los registros
     i = 0
@@ -170,21 +188,20 @@ def print_pokemon_lt(lt_pokemon, n_th=NTH):
     print("\n++++++ los campos de la lista de Pokemon son:")
     for col in poke_cols:
         print("\t - '" + str(col) + "'")
-    print("\n0++++++ los registros de la lista de Pokemon son:")
-    print("imprimiendo cada " + str(n_th) + " veces la lista de Pokemon...\n")
+    print("\n++++++ los registros de la lista de Pokemon son:")
+    print("Imprimiendo cada", str(n_th), "elementos de la lista de Pokemon...")
 
     # iterando sobre los registros de pokemons en el ADT list
     for mon in lt.iterator(lt_pokemon):
         # calculando el modulo del contador de trabajo
         if i % n_th == 0.0:
             # imprimiendo el registro de la n-esima vez
-            print("-------------------------------------------------------")
+            print("\n-------------------------------------------------------")
             print("i:", i,
                   "type:", type(mon), "\n"
                   "data:", mon, "\n")
         # incrementando el contador de trabajo
         i = i + 1
-    
     print("++++++ total de registros:", lt.size(lt_pokemon))
 
 
