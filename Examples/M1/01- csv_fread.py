@@ -53,10 +53,10 @@ NTH = 200
 # chequeando si la configuracion esta activa
 assert cf
 
+
 # =============================================================================
 # ================== Funciones para configurar el ADT List ====================
 # =============================================================================
-
 
 def cmp_pokedex_id(mon1, mon2):
     """cmp_pokedex_id compara el numero del pokedex de dos pokemon para
@@ -222,6 +222,7 @@ if __name__ == "__main__":
     2) cargar los datos de un archivo CSV
     3) mostrar los datos de cargados en la lista desde el archivo CSV
     4) eliminar datos de la lista
+    5) salir
     """
 
     # titulo del programa
@@ -253,13 +254,15 @@ if __name__ == "__main__":
             new_buffer_size = config_buffer(buffer_size)
             print("El tamaño del buffer ahora es:", new_buffer_size)
             print(WARNING_BUFFER_SIZE)
+            print("¡La operación fue exitosa!\n")
 
         # opcion 2: cargar los datos de un archivo CSV
         elif opt_usr == 2:
             print("\nCargando los datos del archivo CSV...")
-            print("Archivo:", pokemon_fn)
+            print("\tArchivo:", pokemon_fn)
             pokemon_lt = load_data(poke_folder, pokemon_fn)
             print("la lista tiene", lt.size(pokemon_lt), "pokemons")
+            print("¡La operación fue exitosa!\n")
 
         # opcion 3: mostrar los datos del ADT List
         elif opt_usr == 3:
@@ -267,6 +270,7 @@ if __name__ == "__main__":
             input_str = "Seleccione la frecuencia de impresion: "
             n_th = int(input(input_str))
             print_pokemon_lt(pokemon_lt, n_th)
+            print("¡La operación fue exitosa!\n")
 
         # opcion 4: eliminar los datos del ADT List
         elif opt_usr == 4:
@@ -274,6 +278,7 @@ if __name__ == "__main__":
             pokemon_lt = None
             print("Se eliminaron los datos del ADT List")
             dsize = gc.collect()
+            print("¡La operación fue exitosa!\n")
 
         # finalizar el programa
         else:
