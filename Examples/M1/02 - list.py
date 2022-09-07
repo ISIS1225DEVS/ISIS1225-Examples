@@ -69,10 +69,8 @@ def cmp_pokedex_id(mon1, mon2):
         mon1 (dict): primer registro de pokemon a comparar
         mon2 (dict): segundo registro de pokemon a comparar
 
-
     Raises:
         Exception: devuelve un error generico en cualquier otro caso
-
 
     Returns:
         int: -1 si la comparacion es es menor, 0 si es igual, 1 si es mayor
@@ -234,10 +232,6 @@ def delete_pokemon(pokemon_lt, option, *args):
         print("¡Error al eliminar el pokemon!")
         raise e
 
-    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-    # seleccionar opcion del usuario
-    opt_usr = int(input("Seleccione una opción para continuar:"))
-    return opt_usr
 
 def get_lt_info(pokemon_lt):
     """print_info devuelve la informacion de los pokemon en el ADT list.
@@ -248,12 +242,9 @@ def get_lt_info(pokemon_lt):
     Returns:
         list: tamaño del ADT list y si esta vacio o no
     """
-    size, is_empty = get_lt_info(pokemon_lt)
-    print("\n----- Información del ADT List -----")
-    print("Está vacía:", is_empty)
-    print("Tipo de ADT List:", pokemon_lt.get("datastructure"))
-    print("Tamaño de la lista:", size)
-    print("-----------------------------------------------------\n")
+    size = lt.size(pokemon_lt)
+    is_empty = lt.isEmpty(pokemon_lt)
+    return (size, is_empty)
 
 
 def get_pokemon(pokemon_lt, option, *args):
@@ -381,22 +372,6 @@ def print_load_data(struct_cfg, poke_folder, pokemon_fn):
     print("-----------------------------------------------------\n")
     return pokemon_lt
 
-    print("\n----- Información del archivo CSV -----")
-    print("Configuración del ADT List:", struct_cfg)
-    print("Carpeta:", poke_folder)
-    print("Archivo:", pokemon_fn)
-    print("Confgurando buffer para lectura de archivo CSV...")
-    cur_limit = config_buffer()
-    print("Buffer configurado correctamente.")
-    print("tamaño del buffer:", cur_limit)
-    print("Cargando archivo CSV...")
-    print("Cargando pokemones desde el archivo CSV...")
-    pokemon_lt = load_data(struct_cfg, poke_folder, pokemon_fn)
-    print("Carga exitosa...")
-    print("Lista de tipo:", pokemon_lt.get("datastructure"))
-    print("Tamaño de la lista:", lt.size(pokemon_lt), "pokemones")
-    print("-----------------------------------------------------\n")
-    return pokemon_lt
 
 def print_pokemon(pokemon_lt, option, *args):
     """print_pokemon imprime la informacion del pokemon seleccionado.
