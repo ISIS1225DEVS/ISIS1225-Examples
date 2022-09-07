@@ -309,8 +309,8 @@ def print_options(struct_cfg):
     print("-----------------------------------------------------\n")
     print("\t1. Cargar pokemon desde el archivo CSV\n",
           "\t¡¡¡IMPORTANTE: ejecutar esta opción antes de cualquier otra!!!")
-    print("\t2. Leer la información general de la lista de pokemones.")
-    print("\t3. Leer la información de un pokemon.")
+    print("\t2. Imprimir la información general de la lista de pokemones.")
+    print("\t3. Imprimir la información de un pokemon.")
     print("\t4. Agregar un nuevo pokemon en la lista",
           "(al inicio, al final, o en otra posición).")
     print("\t5. Eliminar un pokemon de la lista.",
@@ -408,7 +408,7 @@ def print_pokemon_lt(pokemon_lt, n_th=NTH):
 
     Args:
         pokemon_lt (ADT List): el ADT list de los pokemon a imprimir
-        n_th (in, optional): la frecuencia de impresion de los datos.
+        n_th (int, optional): la frecuencia de impresion de los datos.
         por defecto es NTH.
     """
 
