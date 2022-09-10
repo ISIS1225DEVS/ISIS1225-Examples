@@ -6,9 +6,13 @@ Desarrollado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
 
 Este módulo contiene un menú de ejemplo para el manejo de archivos CSV,
 el cual puede ser modificado para adaptarse al problema particular.
-el menú tiene las opciones de configurar el buffer de lectura de archivos CSV,
-leer un archivo CSV, mostrar los datos en pantalla, eliminar los datos y salir.
-
+el menú tiene las opciones de:
+    - configurar el buffer de lectura de archivos CSV
+    - leer un archivo CSV y cargarlo en un ADT list
+    - mostrar los datos en el ADT List
+    - eliminar los datos del ADT List
+    - salir del programa
+\
 Este es un programa de ejemplo para la clase de Estructura de Datos y
 Algoritmos en la Universidad de los Andes (Uniandes) en Bogotá Colombia.
 

@@ -552,7 +552,7 @@ if __name__ == "__main__":
             pokemon_lite = {
                 "pokedex_num": poke_num,
                 "name": poke_name,
-                "type": poke_type,
+                "type1": poke_type,
                 "generation": poke_gen,
                 "hp": hp,
                 }

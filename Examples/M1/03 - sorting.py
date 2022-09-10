@@ -6,14 +6,14 @@ Desarrollado para el curso ISIS1225 - Estructuras de Datos y Algoritmos
 
 Este módulo contiene un menú de que permite al usuario realizar diferentes
 funciones con el ADT Sorting como:
-    - Elegir la configuracion del ADT Sorting (iterative_sorting
-      o recursive_sorting)
-    - Cargar los elementos a la lista desde un archivo csv
-    - Ordenar ascendentemente los pokemones por numero
-    - Ordenar acendentemente los pokemones por nombre
-    - Ordenar descendentemente los pokemones por numero
-    - Ordenar descendentemente los pokemones por nombre
-    - Imprimir los primeros N elementos recorriendo la lista
+    - Elegir la configuracion del ADT List (ARRAY_LIST o LINKED_LIST)
+    - Cargar los elementos a la lista desde un archivo CSV
+    - Elegir el algoritmo de ordenamiento (selection_sort, insertion_sort,
+        shell_sort, merge_sort, quick_sort)
+    - Elegir los criterios de ordenamiento (ascendente o descendente), y
+        las propiedades pokedex_num, name, type1, classification y generation
+    - ordenar los elementos de la lista
+    - Imprimir los N primeros y ultimos elementos recorriendo la lista
     - Salir del programa
 Este es un programa de ejemplo para la clase de Estructura de Datos y
 Algoritmos en la Universidad de los Andes (Uniandes) en Bogotá Colombia.
