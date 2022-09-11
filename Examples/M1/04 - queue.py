@@ -9,7 +9,7 @@ Este módulo contiene un menú de que permite al usuario realizar diferentes
 funciones con el ADT Sorting como:
     - Elegir la configuracion del ADT List (ARRAY_LIST o LINKED_LIST)
     - Cargar los elementos a la lista desde un archivo CSV
-    - Cargar un tipo de pokemon en un cola
+    - Cargar un tipo de pokemon en una cola
     - Imprimir informacion de la lista y la cola
     - Verificar si la cola esta vacia
     - Obtener el tamaño de la cola
@@ -301,8 +301,8 @@ def add_pokemon_type(pokemon_type_lt, pokemon):
 
 
 def isin_pokemon_types(pokemon_type_lt, pokemon_type):
-    """isin_types verifica si un tipo de pokemon esta en la lista de tipos de
-    pokemon.
+    """isin_pokemon_types verifica si un tipo de pokemon esta en la lista
+    de tipos de pokemon.
 
     Args:
         pokemon_type_lt (ADT list): lista de tipos de pokemon
@@ -383,7 +383,7 @@ def get_q_info(pokemon_q):
     """print_info devuelve la informacion de los pokemon en el ADT queue.
 
     Args:
-        pokemon_queue (ADT Queue): cola de pokemon
+        pokemon_q (ADT Queue): cola de pokemon
 
     Returns:
         list: tamaño del ADT queue, si esta vacio o no y el primer
@@ -484,8 +484,8 @@ def print_options(struct_cfg):
     print("\t2. Imprimir la información general de la lista de pokemones.")
     print("\t3. Cargar los datos de un tipo de pokemon en una cola (queue).")
     print("\t4. Imprimir la información del catalogo de pokemones.")
-    print("\t5. Encolar un pokemon al final de la cola de pokemones.")
-    print("\t6. Desencolar un pokemon al inicio de la cola de pokemones.")
+    print("\t5. Encolar un pokemon al final de la cola.")
+    print("\t6. Desencolar un pokemon al inicio de la cola.")
     print("\t7. Imprimir los N primeros y ultimos pokemones de la cola.")
     print("\t8. Cambiar la configuración del ADT list.")
     print("\t9. Salir.")
@@ -506,7 +506,8 @@ def print_load_data(struct_cfg, poke_folder, pokemon_fn):
         pokemon_fn (str): nombre del archivo CSV
 
     Returns:
-        pokemon_lt (ADT list): lista de pokemon
+        pokemon_ctlg (dict): diccionrio donde los valores de las llaves
+        son los ADT de pokemon
     """
 
     print("\n----- Información del archivo CSV -----")
@@ -838,6 +839,7 @@ if __name__ == "__main__":
             print("Imprimiendo la cola de los pokemon...")
             print("IMPORTANTE: la cola se vacia al imprimir los elementos!!!")
             nth = input(nth_str)
+            nth = int(nth)
             pokemon_type_q = pokemon_ctlg[POKEMON_CTLG_KEYS[2]]
             print_nth_queue_pokemon(pokemon_type_q,
                                     relevant_pokemon_keys,
