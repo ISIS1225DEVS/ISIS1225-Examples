@@ -26,10 +26,33 @@ Contribuciones de:
 ###############################################################################
 """
 #importaciones de librerias
+import csv
+import gc
+import sys
+import pprint
+import os
 import config as cf
 #importaciones de DISCLib
 from DISClib.ADT import list as lt
 from DISClib.ADT import minpq
+
+# importaciones de modulos DISCLib
+from DISClib.ADT import list as lt
+
+# variables globales
+# tamaño maximo del buffer de lectura de archivos CSV
+SYS_MAX_SIZE_FIELD = sys.maxsize
+# tamano recomendado del buffer de lectura de archivos CSV
+RECOMENDED_SIZE_FIELD = pow(2, 31) - 1
+# frecuencia de impresion de registros
+NTH = 200
+
+# chequeando si la configuracion esta activa
+assert cf
+
+# =============================================================================
+# ================== Funciones para configurar el ADT MinPQ ====================
+# =============================================================================
 
 #Funcion que se encarga de visualizar que elementos es mayor
 #En el caso que k1 sea mayor a k2 debemos retornar 1
@@ -43,8 +66,63 @@ def cmpfunction(k1, k2):
   else:
     return -1
 
+# =============================================================================
+# =================== Funciones de lectura de archivos CSV ====================
+# =============================================================================
 
-pq = minpq.newMinPQ(cmpfunction)
+def config_buffer(buffer_size=RECOMENDED_SIZE_FIELD):
+    """config_buffer configura el tamaño del buffer para la lectura de
+    archivos CSV.
+
+    Args:
+        buffer_size (int): tamaño del buffer a configurar
+    """
+    # configurando el buffer de lectura de archivos CSV
+    csv.field_size_limit(buffer_size)
+    # tomando el nuevo tamaño del buffer
+    new_buffer_size = csv.field_size_limit()
+    # retornando respuesta al usuario
+    return new_buffer_size
+
+def load_data(folder_name, file_name):
+    """load_data carga los datos de un archivo CSV y los devuelve en una
+    lista de diccionarios.
+
+    Args:
+        struct_cfg (dict): configuracion del ADT List
+        folder_name (str): nombre del directorio donde se encuentra el archivo
+        file_name (str): nombre del archivo CSV a cargar
+
+    Raises:
+        Exception: devuelve un error generico en cualquier otro caso
+
+    Returns:
+        ADT list: ADT list de diccionarios con los datos del archivo CSV
+    """
+    pq = minpq.newMinPQ(cmpfunction)
+
+    try:
+        # concatenando el nombre del archivo con las carpetas de datos
+        triage_fpath = os.path.join(cf.data_dir,
+                                     folder_name,
+                                     file_name)
+        print("Archivo ubicado en:", triage_fpath)
+
+        # abriendo el archivo CSV
+        triage_file = open(triage_fpath, "r", encoding="utf-8")
+        # leyendo el archivo CSV
+        triage_register = csv.DictReader(triage_file, delimiter=",")
+        # iterando sobre los registros del archivo CSV
+        for triage in triage_register:
+            # agregando el registro al ADT list
+            lt.addLast(triage_lt, triage)
+        # cerrando el archivo CSV
+        triage_file.close()
+        # retornando la lista de triage
+        return triage_lt
+    except Exception as e:
+        print(e)
+        raise Exception
 
 #Insertamos elementos en la cola de prioridad
 minpq.insert(pq, 2) #pq = [2]
