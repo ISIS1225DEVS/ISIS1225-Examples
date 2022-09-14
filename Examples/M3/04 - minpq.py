@@ -28,13 +28,14 @@ Contribuciones de:
 #importaciones de librerias
 import csv
 import gc
+from shutil import ExecError
 import sys
 import pprint
 import os
 import config as cf
 #importaciones de DISCLib
 from DISClib.ADT import list as lt
-from DISClib.ADT import minpq
+from DISClib.ADT import minpq as mpq
 
 # importaciones de modulos DISCLib
 from DISClib.ADT import list as lt
@@ -58,13 +59,20 @@ assert cf
 #En el caso que k1 sea mayor a k2 debemos retornar 1
 #En el caso que k1 sea igual a k2 debemos retornar 0
 #Si no es ninguno de los casos anteriores retornamos -1
-def cmpfunction(k1, k2):
-  if k1 > k2:
-    return 1
-  if k1 == k2:
-    return 0
-  else:
-    return -1
+def cmpfunction(patient1, patient2):
+    hearth_rate = "HR"
+    respiratory_rate = "RR"
+    systolic_blood_preasure = "SBP"
+    diastolic_blood_preasure = "DBP"
+    injury="Injury"
+    if (patient1[hearth_rate]<patient2[hearth_rate]) or (patient1[respiratory_rate]<patient1[respiratory_rate]):
+        return 1
+    elif (patient1[systolic_blood_preasure]<patient2[systolic_blood_preasure]) or (patient1[diastolic_blood_preasure]<patient2[diastolic_blood_preasure]):
+        return 0
+    elif (patient1[injury]<patient2[injury]):
+        return -1
+    else:
+        raise Exception
 
 # =============================================================================
 # =================== Funciones de lectura de archivos CSV ====================
@@ -99,7 +107,7 @@ def load_data(folder_name, file_name):
     Returns:
         ADT list: ADT list de diccionarios con los datos del archivo CSV
     """
-    pq = minpq.newMinPQ(cmpfunction)
+    pq = mpq.newMinPQ(cmpfunction)
 
     try:
         # concatenando el nombre del archivo con las carpetas de datos
@@ -115,14 +123,18 @@ def load_data(folder_name, file_name):
         # iterando sobre los registros del archivo CSV
         for triage in triage_register:
             # agregando el registro al ADT list
-            lt.addLast(triage_lt, triage)
+            mpq.insert(pq, triage)
         # cerrando el archivo CSV
         triage_file.close()
         # retornando la lista de triage
-        return triage_lt
+        return pq
     except Exception as e:
         print(e)
         raise Exception
+
+# =============================================================================
+# ================== Funciones para manipular el ADT MinPQ =====================
+# =============================================================================
 
 #Insertamos elementos en la cola de prioridad
 minpq.insert(pq, 2) #pq = [2]
@@ -139,3 +151,47 @@ minpq.delMin(pq)  # => 1, se elimina el minimo, pq = [3, 4, 5]
 #Indica si la MinPQ esta vacia
 minpq.size(pq)    # => 3
 minpq.isEmpty(pq) # => False
+
+# =============================================================================
+# ============= Funciones para imprimir informacion de la lista ===============
+# =============================================================================
+
+def print_options(struct_cfg):
+    """print_options imprime un menu con las opciones disponibles para el
+    usuario y permite elegir una opcion de configuracion del ADT list.
+
+    Args:
+        struct_cfg (int): opcion de configuracion del ADT list
+
+    Returns:
+        opt_usr (int): la opcion elegida por el usuario
+    """
+    # imprimir menu de opciones para el usuario
+    print("\n++++++++++++++++++++++ MENU PRINCIPAL +++++++++++++++++++++++++")
+    # Configuracion del ADT list
+    print("\n----- Configuración del ADT List -----")
+    # seleccionar ARRAYLIST
+    if struct_cfg == 1:
+        print("Seleccionó la opción de configuración: ARRAY_LIST.\n")
+    # seleccionar LINKEDLIST
+    elif struct_cfg == 2:
+        print("Seleccionó la opción de configuración: LINKED_LIST.\n")
+    # mostrar opciones para el usuario
+    print("-----------------------------------------------------\n")
+    print("\t1. Cargar pacientes desde el archivo CSV\n",
+          "\t¡¡¡IMPORTANTE: ejecutar esta opción antes de cualquier otra!!!")
+    print("\t2. Imprimir la información general de la lista de pacientes.")
+    print("\t3. Imprimir la información de un paciente.")
+    print("\t4. Agregar un nuevo paciente en la cola")
+    print("\t5. Atender un paciente.")
+    print("\t6. Imprimir los pokemones de la lista.")
+    print("\t7. Imprimir los N pokemones de la lista por iterador.")
+    print("\t8. Imprimir los N pokemones de la lista por sublista.")
+    print("\t9. Cambiar la configuración del ADT list.")
+    print("\t10. Salir.")
+    print("\n-----------------------------------------------------")
+
+    print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+    # seleccionar opcion del usuario
+    opt_usr = int(input("Seleccione una opción para continuar:"))
+    return opt_usr
