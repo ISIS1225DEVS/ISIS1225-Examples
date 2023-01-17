@@ -262,17 +262,17 @@ def print_select_sort(algo_opt):
     print("\n----- Selección del algoritmo de ordenamiento -----")
     print("Algoritmo seleccionado:", algo_opt)
     config = select_sort_algorithm(algo_opt)
-    sort_algo = config[0]
+    slctd_algo = config[0]
     str_sort = config[1]
     print("Configuración del algoritmo:\n\t", str_sort)
-    return sort_algo
+    return slctd_algo
 
 
-def print_select_cmp(order_opt, cmp_opt):
+def print_select_cmp(sort_opt, criteria_opt):
     print("\n----- Selección de los criterios de ordenamiento -----")
-    print("Orden seleccionado:", order_opt)
-    print("Criterio seleccionado:", cmp_opt)
-    config = select_cmp_function(order_opt, cmp_opt)
+    print("Orden seleccionado:", sort_opt)
+    print("Criterio seleccionado:", criteria_opt)
+    config = select_sort_criteria(sort_opt, criteria_opt)
     sort_criterion = config[0]
     str_sort = config[1]
     print("Configuración de la función de comparación:\n\t", str_sort)
@@ -342,106 +342,118 @@ def select_sort_algorithm(algo_opt):
     para la lista de pokemon.
 
     Args:
-        algo_opt (int): opcion de algoritmo de ordenamiento
+        algo_opt (int): opcion de algoritmo de ordenamiento, las opciones son:
+            1: Selection Sort
+            2: Insertion Sort
+            3: Shell Sort
+            4: Merge Sort
+            5: Quick Sort
 
     Returns:
-        list: sort_algo (sort) la instancia del ordenamiento y
-        str_sort (str) el texto que describe la configuracion del ordenamiento
+        list: slctd_algo (sort) la instancia del ordenamiento y
+        algo_ans (str) el texto que describe la configuracion del ordenamiento
     """
 
     # respuestas por defecto
-    sort_algo = None
-    str_algo = None
+    slctd_algo = None
+    algo_ans = None
 
     # selecciona el algoritmo de ordenamiento
     # opcion 1: Selection Sort
     if algo_opt == 1:
-        sort_algo = ses
-        str_algo = "Seleccionó la configuración - Selection Sort"
+        slctd_algo = ses
+        algo_ans = "Seleccionó la configuración - Selection Sort"
 
     # opcion 2: Insertion Sort
     elif algo_opt == 2:
-        sort_algo = ins
-        str_algo = "Seleccionó la configuración - Insertion Sort"
+        slctd_algo = ins
+        algo_ans = "Seleccionó la configuración - Insertion Sort"
 
     # opcion 3: Shell Sort
     elif algo_opt == 3:
-        sort_algo = shs
-        str_algo = "Seleccionó la configuración - Shell Sort"
+        slctd_algo = shs
+        algo_ans = "Seleccionó la configuración - Shell Sort"
 
     # opcion 4: Merge Sort
     elif algo_opt == 4:
-        sort_algo = mes
-        str_algo = "Seleccionó la configuración - Merge Sort"
+        slctd_algo = mes
+        algo_ans = "Seleccionó la configuración - Merge Sort"
 
     # opcion 5: Quick Sort
     elif algo_opt == 5:
-        sort_algo = qus
-        str_algo = "Seleccionó la configuración - Quick Sort"
+        slctd_algo = qus
+        algo_ans = "Seleccionó la configuración - Quick Sort"
 
     # respuesta final: algoritmo de ordenamiento y texto de configuracion
-    return sort_algo, str_algo
+    return slctd_algo, algo_ans
 
 
-def select_cmp_function(order_opt, cmp_opt):
-    """select_cmp_function selecciona la funcion de comparacion para
+def select_sort_criteria(sort_opt, criteria_opt):
+    """select_sort_criteria selecciona la funcion de comparacion para
     organizar los datos del ADT list.
 
     Args:
-        order_opt (int): opcion de ordenamiento 1 ascendente, 2 descendente
-        cmp_opt (int): opcion de la funcion de comparacion 1 por numero de
-        pokemon, 2 por nombre, 3 por tipo, 4 por generarion y clasificacion
+        sort_opt (int): opcion de ordenamiento, las opciones son:
+            1: ascendente
+            2: descendente
+        criteria_opt (int): opcion del para la funcion especifica del criterio
+        de comparacio, las opciones son:
+            1: por numero de pokemon
+            2: por nombre
+            3: por tipo
+            4: por generarion y clasificacion
 
     Returns:
-        cmp_function: funcion de comparacion seleccionada
+        sort_crit: funcion con el criterio de ordenamiento seleccionado
+        crit_ans (str) el texto que describe la configuracion del ordenamiento
     """
-    cmp_function = None
-    str_cmp = None
+    sort_crit = None
+    crit_ans = None
 
     # selecciona el orden
     # opcion 1: ascendente
-    if order_opt == 1:
+    if sort_opt == 1:
         # selecciona el criterio
         # opcion 1: comparar por numero de pokemon
-        if cmp_opt == 1:
-            cmp_function = cmp_pokemon_by_number_up
-            str_cmp = "Orden ascendente por número del pokemon."
+        if criteria_opt == 1:
+            sort_crit = sort_crit_by_number_up
+            crit_ans = "Orden ascendente por número del pokemon."
         # opcion 2: comparar por nombre de pokemon
-        elif cmp_opt == 2:
-            cmp_function = cmp_pokemon_by_name_up
-            str_cmp = "Orden ascendente por nombre del pokemon."
+        elif criteria_opt == 2:
+            sort_crit = sort_crit_by_name_up
+            crit_ans = "Orden ascendente por nombre del pokemon."
         # opcion 3: comparar por tipo de pokemon
-        elif cmp_opt == 3:
-            cmp_function = cmp_pokemon_by_type_up
-            str_cmp = "Orden ascendente por tipo del pokemon."
+        elif criteria_opt == 3:
+            sort_crit = sort_crit_by_type_up
+            crit_ans = "Orden ascendente por tipo del pokemon."
         # opcion 4: comparar por clasificacion y generacion de pokemon
-        elif cmp_opt == 4:
-            cmp_function = cmp_pokemon_by_genclass_up
-            str_cmp = "Orden ascendente por clase y generación del pokemon."
+        elif criteria_opt == 4:
+            sort_crit = sort_crit_by_genclass_up
+            crit_ans = "Orden ascendente por clase y generación del pokemon."
 
     # opcion 2: descendente
-    elif order_opt == 2:
+    elif sort_opt == 2:
         # selecciona el criterio
         # opcion 1: comparar por numero de pokemon
-        if cmp_opt == 1:
-            cmp_function = cmp_pokemon_by_number_down
-            str_cmp = "Orden descendente por número del pokemon."
+        if criteria_opt == 1:
+            sort_crit = sort_crit_by_number_down
+            crit_ans = "Orden descendente por número del pokemon."
         # opcion 2: comparar por nombre de pokemon
-        elif cmp_opt == 2:
-            cmp_function = cmp_pokemon_by_name_down
-            str_cmp = "Orden descendente por nombre del pokemon."
+        elif criteria_opt == 2:
+            sort_crit = sort_crit_by_name_down
+            crit_ans = "Orden descendente por nombre del pokemon."
         # opcion 3: comparar por tipo de pokemon
-        elif cmp_opt == 3:
-            cmp_function = cmp_pokemon_by_type_down
-            str_cmp = "Orden descendente por tipo del pokemon."
-        elif cmp_opt == 4:
-            cmp_function = cmp_pokemon_by_genclass_up
-            str_cmp = "Orden descendente por clase y generación del pokemon."
+        elif criteria_opt == 3:
+            sort_crit = sort_crit_by_type_down
+            crit_ans = "Orden descendente por tipo del pokemon."
+        elif criteria_opt == 4:
+            sort_crit = sort_crit_by_genclass_up
+            crit_ans = "Orden descendente por clase y generación del pokemon."
 
-    return cmp_function, str_cmp
+    return sort_crit, crit_ans
 
 
-def sort_pokemon_lt(pokemon_lt, sort_algorithm, cmp_function):
+def sort_pokemon_lt(pokemon_lt, sort_algorithm, sort_crit):
     """sort_pokemon_lt ordena la lista de pokemon segun la funcion de
     comparacion dada y el algoritmo de ordenamiento seleccionado.
 
@@ -449,14 +461,14 @@ def sort_pokemon_lt(pokemon_lt, sort_algorithm, cmp_function):
         pokemon_lt (ADT list): lista de pokemon a ordenar
         sort_algorithm (Algoritm): modulo del algoritmo de ordenamiento
         a utilizar
-        cmp_function (function): funcion de comparacion seleccionada
+        sort_crit (function): funcion de comparacion seleccionada
 
     returns:
         ADT list: lista de pokemon ordenada
     """
     # se ordena la lista de pokemon
     # sort_algorithm es una variable vaga que contiene el modulo del algoritmo
-    ans = sort_algorithm.sort(pokemon_lt, cmp_function)
+    ans = sort_algorithm.sort(pokemon_lt, sort_crit)
     return ans
 
 
@@ -464,8 +476,8 @@ def sort_pokemon_lt(pokemon_lt, sort_algorithm, cmp_function):
 # =========== Funciones de comparacion para organizar el ADT List =============
 # =============================================================================
 
-def cmp_pokemon_by_number_up(pokemon1, pokemon2):
-    """cmp_pokemon_by_number_up compara ascendentemente dos pokemon por su
+def sort_crit_by_number_up(pokemon1, pokemon2):
+    """sort_crit_by_number_up compara ascendentemente dos pokemon por su
     numero en el pokedex.
 
     Args:
@@ -480,8 +492,9 @@ def cmp_pokemon_by_number_up(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_name_up(pokemon1, pokemon2):
-    """cmp_pokemon_by_name_up compara ascendentemente dos pokemon por su nombre.
+def sort_crit_by_name_up(pokemon1, pokemon2):
+    """sort_crit_by_name_up compara ascendentemente dos pokemon por su
+    nombre.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -495,8 +508,9 @@ def cmp_pokemon_by_name_up(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_type_up(pokemon1, pokemon2):
-    """cmp_pokemon_by_type_up compara ascendentemente dos pokemon por su tipo.
+def sort_crit_by_type_up(pokemon1, pokemon2):
+    """sort_crit_by_type_up compara ascendentemente dos pokemon por su
+    tipo.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -510,9 +524,9 @@ def cmp_pokemon_by_type_up(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_genclass_up(pokemon1, pokemon2):
-    """cmp_pokemon_by_genclass_up compara ascendentemente dos pokemon por su
-    generacion y clasificacion.
+def sort_crit_by_genclass_up(pokemon1, pokemon2):
+    """sort_crit_by_genclass_up compara ascendentemente dos pokemon por
+    su generacion y clasificacion.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -530,9 +544,9 @@ def cmp_pokemon_by_genclass_up(pokemon1, pokemon2):
         return ans
 
 
-def cmp_pokemon_by_number_down(pokemon1, pokemon2):
-    """cmp_pokemon_by_number_down compara descendentemente dos pokemon por su
-    numero en el pokedex.
+def sort_crit_by_number_down(pokemon1, pokemon2):
+    """sort_crit_by_number_down compara descendentemente dos pokemon por
+    su numero en el pokedex.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -546,9 +560,9 @@ def cmp_pokemon_by_number_down(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_name_down(pokemon1, pokemon2):
-    """cmp_pokemon_by_name_down compara descendentemente dos pokemon por su
-    nombre.
+def sort_crit_by_name_down(pokemon1, pokemon2):
+    """sort_crit_by_name_down compara descendentemente dos pokemon por
+    su nombre.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -562,9 +576,9 @@ def cmp_pokemon_by_name_down(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_type_down(pokemon1, pokemon2):
-    """cmp_pokemon_by_type_down compara descendentemente dos pokemon por su
-    tipo.
+def sort_crit_by_type_down(pokemon1, pokemon2):
+    """sort_crit_by_type_down compara descendentemente dos pokemon por
+    su tipo.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -578,9 +592,9 @@ def cmp_pokemon_by_type_down(pokemon1, pokemon2):
     return ans
 
 
-def cmp_pokemon_by_genclas_down(pokemon1, pokemon2):
-    """cmp_pokemon_by_genclas_down compara descendentemente dos pokemon por su
-    generacion y clasificacion.
+def sort_crit_by_genclass_down(pokemon1, pokemon2):
+    """sort_crit_by_genclass_down compara descendentemente dos pokemon
+    por su generacion y clasificacion.
 
     Args:
         pokemon1 (dict): primer pokemon a comparar
@@ -610,9 +624,9 @@ algo_str = """Seleccione el algoritmo de ordenamiento
                  3. Shell Sort ||
                  4. Merge Sort ||
                  5. Quick Sort): """
-ord_str = """Seleccione el tipo de ordenamiento
+sort_str = """Seleccione el tipo de ordenamiento
             (1. Ascendente || 2. Descendente): """
-cmp_str = """Seleccione el criterio de comparación
+crit_str = """Seleccione el criterio de comparación
                 (1. Numero ||
                  2. Nombre ||
                  3. Tipo ||
@@ -635,7 +649,7 @@ if __name__ == "__main__":
     poke_folder = "Samples"
     pokemon_fn = "Pokemon-utf8-sample.csv"
     pokemon_lt = None
-    sort_algo = None
+    slctd_algo = None
     cmp_func = None
     working = True
 
@@ -659,21 +673,21 @@ if __name__ == "__main__":
             print("\n----- Seleccione el algoritmo de ordenamiento: -----")
             algo_opt = input(algo_str)
             algo_opt = int(algo_opt)
-            sort_algo = print_select_sort(algo_opt)
+            slctd_algo = print_select_sort(algo_opt)
 
         # opción 4: seleccionar el criterio de ordenamiento
         elif opt_usr == 4:
             print("\n----- Seleccione los criterios de ordenamiento: -----")
-            order_opt = input(ord_str)
-            order_opt = int(order_opt)
-            cmp_opt = input(cmp_str)
-            cmp_opt = int(cmp_opt)
-            cmp_func = print_select_cmp(order_opt, cmp_opt)
+            sort_opt = input(sort_str)
+            sort_opt = int(sort_opt)
+            criteria_opt = input(crit_str)
+            criteria_opt = int(criteria_opt)
+            cmp_func = print_select_cmp(sort_opt, criteria_opt)
 
         # opción 5: ordenar la lista de pokemones
         elif opt_usr == 5:
             print("\n----- Ordenando la lista de pokemones -----")
-            pokemon_lt = sort_pokemon_lt(pokemon_lt, sort_algo, cmp_func)
+            pokemon_lt = sort_pokemon_lt(pokemon_lt, slctd_algo, cmp_func)
 
         # opción 6: imprimir los primeros y ultimos N Pokemons de la lista
         elif opt_usr == 6:
