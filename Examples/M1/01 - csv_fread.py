@@ -12,7 +12,7 @@ el menú tiene las opciones de:
     - mostrar los datos en el ADT List
     - eliminar los datos del ADT List
     - salir del programa
-\
+
 Este es un programa de ejemplo para la clase de Estructura de Datos y
 Algoritmos en la Universidad de los Andes (Uniandes) en Bogotá Colombia.
 
@@ -145,7 +145,7 @@ def load_data(folder_name, file_name):
         # iterando sobre los registros del archivo CSV
         for mon in pokemons:
             # agregando el registro al ADT list
-            lt.addFirst(pokemon_lt, mon)
+            pokemon_lt = add_pokemon(pokemon_lt, mon)
         # cerrando el archivo CSV
         pokemon_file.close()
         # retornando la lista de pokemon
@@ -153,6 +153,20 @@ def load_data(folder_name, file_name):
     except Exception as e:
         print(e)
         raise Exception
+
+
+def add_pokemon(pokemon_lt, pokemon):
+    """add_pokemon agrega un nuevo pokemon a la lista de pokemon
+
+    Args:
+        pokemon_lt (ADT list): lista DISCLib de pokemon
+        pokemon (dict): nuevo pokemon a agregar
+
+    Returns:
+        ADT list: lista de pokemon con el nuevo pokemon agregado
+    """
+    lt.addFirst(pokemon_lt, pokemon)
+    return pokemon_lt
 
 
 # =============================================================================
