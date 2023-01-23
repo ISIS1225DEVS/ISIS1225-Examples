@@ -98,11 +98,13 @@ def cmp_pokedex_id(mon1, mon2):
 # =============================================================================
 
 def config_buffer(buffer_size=RECOMENDED_SIZE_FIELD):
+
     """config_buffer configura el tamaño del buffer para la lectura de
     archivos CSV.
 
     Args:
-        buffer_size (int): tamaño del buffer a configurar
+        buffer_size (int): tamaño del buffer a configurar. Por defecto es
+        RECOMENDED_SIZE_FIELD.
     """
     # configurando el buffer de lectura de archivos CSV
     csv.field_size_limit(buffer_size)
@@ -152,7 +154,7 @@ def load_data(struct_cfg, folder_name, file_name):
         # iterando sobre los registros del archivo CSV
         for pokemon in pokemon_register:
             # agregando el registro al ADT list
-            lt.addLast(pokemon_lt, pokemon)
+            pokemon_lt = add_pokemon(pokemon_lt, 1, pokemon)
         # cerrando el archivo CSV
         pokemon_file.close()
         # retornando la lista de pokemon
@@ -194,6 +196,8 @@ def add_pokemon(pokemon_lt, pokemon, option, *args):
         # opcion no valida
         else:
             print("Opción no valida")
+            return None
+        return pokemon_lt
     # error generico
     except Exception as e:
         print("¡Error al agregar el pokemon!")
@@ -561,13 +565,18 @@ if __name__ == "__main__":
             io_opt = int(input(read_str))
             # si se selecciona la opcion 1 o 2, se agrega el primer o ultimo
             if io_opt in (1, 2):
-                add_pokemon(pokemon_lt, pokemon_lite, io_opt)
+                pokemon_lt = add_pokemon(pokemon_lt,
+                                         pokemon_lite,
+                                         io_opt)
             # si se selecciona la opcion 3, se agrega el pokemon en la posición
             if io_opt == 3:
                 # seleccionando la posición del pokemon a agregar
                 pos_str = "Ingrese la posición del pokemon a agregar: "
                 position = int(input(pos_str))
-                add_pokemon(pokemon_lt, pokemon_lite, io_opt, position)
+                pokemon_lt = add_pokemon(pokemon_lt,
+                                         pokemon_lite,
+                                         io_opt,
+                                         position)
 
         # opción 5: eliminar un pokemon de la lista
         elif opt_usr == 5:
@@ -576,13 +585,16 @@ if __name__ == "__main__":
             io_opt = int(input(delete_str))
             # si se selecciona la opcion 1 o 2, se elimina el primer o ultimo
             if io_opt in (1, 2):
-                delete_pokemon(pokemon_lt, io_opt)
+                delete_pokemon(pokemon_lt,
+                               io_opt)
             # si selecciona la opcion 3, se elimina el pokemon en la posición
             if io_opt == 3:
                 # seleccionando la posición del pokemon para eliminar
                 pos_str = "Ingrese la posición del pokemon para eliminar: "
                 position = int(input(pos_str))
-                delete_pokemon(pokemon_lt, io_opt, position)
+                delete_pokemon(pokemon_lt,
+                               io_opt,
+                               position)
 
         # opción 6: imprimir los pokemon de la lista con cierta frecuencia
         elif opt_usr == 6:

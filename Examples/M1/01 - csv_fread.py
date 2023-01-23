@@ -23,7 +23,7 @@ Contribuciones de:
     - Melissa Castañeda - implementación de ejemplos y pruebas
     - Jesus Pinchao - implementación de ejemplos y pruebas
 
-###############################################################################
+###############################e################################################
 # IMPORTANTE: este código de ejemplo no sigue el patron MVC para simplificar
 # su manejo y entendimiento. El código debe ser refactorizado para utilizarse
 # en los laboratorios y retos de la clase.
@@ -44,7 +44,7 @@ from DISClib.ADT import list as lt
 # tamaño maximo del buffer de lectura de archivos CSV
 SYS_MAX_SIZE_FIELD = sys.maxsize
 # tamano recomendado del buffer de lectura de archivos CSV
-CUR_MAX_SIZE_FIELD = pow(2, 31) - 1
+RECOMENDED_SIZE_FIELD = pow(2, 31) - 1
 # texto de ayuda para el usuario
 WARNING_BUFFER_SIZE = """
 Recuerde que el tamaño del buffer debe ser menor o igual al tamaño máximo
@@ -98,12 +98,13 @@ def cmp_pokedex_id(mon1, mon2):
 # =================== Funciones de lectura de archivos CSV ====================
 # =============================================================================
 
-def config_buffer(buffer_size):
+def config_buffer(buffer_size=RECOMENDED_SIZE_FIELD):
     """config_buffer configura el tamaño del buffer para la lectura de
-    archivos CSV
+    archivos CSV.
 
     Args:
-        buffer_size (int): tamaño del buffer a configurar
+        buffer_size (int): tamaño del buffer a configurar. Por defecto es
+        RECOMENDED_SIZE_FIELD.
     """
     # configurando el buffer de lectura de archivos CSV
     csv.field_size_limit(buffer_size)
@@ -141,11 +142,11 @@ def load_data(folder_name, file_name):
         # abriendo el archivo CSV
         pokemon_file = open(pokemon_fpath, "r", encoding="utf-8")
         # leyendo el archivo CSV
-        pokemons = csv.DictReader(pokemon_file, delimiter=",")
+        pokemon_register = csv.DictReader(pokemon_file, delimiter=",")
         # iterando sobre los registros del archivo CSV
-        for mon in pokemons:
+        for pokemon in pokemon_register:
             # agregando el registro al ADT list
-            pokemon_lt = add_pokemon(pokemon_lt, mon)
+            pokemon_lt = add_pokemon(pokemon_lt, pokemon)
         # cerrando el archivo CSV
         pokemon_file.close()
         # retornando la lista de pokemon
@@ -266,7 +267,8 @@ if __name__ == "__main__":
             cur_limit = csv.field_size_limit()
             print("\nEl tamaño actual del buffer es:", cur_limit, "bytes")
             print("El tamaño máximo del buffer es:", SYS_MAX_SIZE_FIELD)
-            print("El tamaño recomendado del buffer es:", CUR_MAX_SIZE_FIELD)
+            print("El tamaño recomendado del buffer es:",
+                  RECOMENDED_SIZE_FIELD)
             input_str = "Ingrese el tamaño del buffer a configurar: "
             buffer_size = int(input(input_str))
             new_buffer_size = config_buffer(buffer_size)
@@ -292,6 +294,7 @@ if __name__ == "__main__":
             print("\nEliminando los pokemon del ADT List...")
             pokemon_lt = None
             print("Se eliminaron los datos del ADT List")
+            # funcion de garbage collector
             dsize = gc.collect()
 
         # finalizar el programa
