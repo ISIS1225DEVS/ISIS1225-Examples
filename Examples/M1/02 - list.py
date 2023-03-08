@@ -154,7 +154,7 @@ def load_data(struct_cfg, folder_name, file_name):
         # iterando sobre los registros del archivo CSV
         for pokemon in pokemon_register:
             # agregando el registro al ADT list
-            pokemon_lt = add_pokemon(pokemon_lt, 1, pokemon)
+            pokemon_lt = add_pokemon(pokemon_lt, pokemon, 1)
         # cerrando el archivo CSV
         pokemon_file.close()
         # retornando la lista de pokemon
@@ -196,7 +196,6 @@ def add_pokemon(pokemon_lt, pokemon, option, *args):
         # opcion no valida
         else:
             print("Opción no valida")
-            return None
         return pokemon_lt
     # error generico
     except Exception as e:
