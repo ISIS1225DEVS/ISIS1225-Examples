@@ -295,7 +295,7 @@ if __name__ == "__main__":
             poke_type = input("Ingresa el tipo del pokemon\n")
             poke_gen = input("Ingresa la generacion del pokemon\n")
             hp = input("Ingresa el hp del pokemon\n")
-            option = int(input("Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario oprime enter\n"))
+            option = int(input("Si deseas ingresarlo al incio de la estructura ingresa 1, al final ingresa 2, de lo contrario ingresa 3\n"))
             position = lt.size(poledex_lt)
             if option != 1 and option != 2:
                 print(
