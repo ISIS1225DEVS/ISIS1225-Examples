@@ -139,4 +139,5 @@ dmypy.json
 *.csv
 *.zip
 !Data/Samples/Pokemon-utf8-sample.csv
+!Data/Samples/Emergency Service - Triage Application.csv
 .vim
