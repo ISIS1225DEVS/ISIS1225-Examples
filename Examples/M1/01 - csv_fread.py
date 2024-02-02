@@ -44,7 +44,7 @@ from DISClib.ADT import list as lt
 # tamaño maximo del buffer de lectura de archivos CSV
 SYS_MAX_SIZE_FIELD = sys.maxsize
 # tamano recomendado del buffer de lectura de archivos CSV
-RECOMENDED_SIZE_FIELD = pow(2, 31) - 1
+RECOMMENDED_SIZE_FIELD = pow(2, 31) - 1
 # texto de ayuda para el usuario
 WARNING_BUFFER_SIZE = """
 Recuerde que el tamaño del buffer debe ser menor o igual al tamaño máximo
@@ -76,7 +76,7 @@ def cmp_pokedex_id(mon1, mon2):
     Returns:
         int: -1 si la comparacion es es menor, 0 si es igual, 1 si es mayor
     """
-    # llave de diccionaro para el numero de pokedex
+    # llave de diccionario para el numero de pokedex
     id_key = "pokedex_num"
     # en caso de que el pokemon1 sea igual al pokemon2
     if (mon1[id_key] == mon2[id_key]):
@@ -98,13 +98,13 @@ def cmp_pokedex_id(mon1, mon2):
 # =================== Funciones de lectura de archivos CSV ====================
 # =============================================================================
 
-def config_buffer(buffer_size=RECOMENDED_SIZE_FIELD):
+def config_buffer(buffer_size=RECOMMENDED_SIZE_FIELD):
     """config_buffer configura el tamaño del buffer para la lectura de
     archivos CSV.
 
     Args:
         buffer_size (int): tamaño del buffer a configurar. Por defecto es
-        RECOMENDED_SIZE_FIELD.
+        RECOMMENDED_SIZE_FIELD.
     """
     # configurando el buffer de lectura de archivos CSV
     csv.field_size_limit(buffer_size)
@@ -268,7 +268,7 @@ if __name__ == "__main__":
             print("\nEl tamaño actual del buffer es:", cur_limit, "bytes")
             print("El tamaño máximo del buffer es:", SYS_MAX_SIZE_FIELD)
             print("El tamaño recomendado del buffer es:",
-                  RECOMENDED_SIZE_FIELD)
+                  RECOMMENDED_SIZE_FIELD)
             input_str = "Ingrese el tamaño del buffer a configurar: "
             buffer_size = int(input(input_str))
             new_buffer_size = config_buffer(buffer_size)
